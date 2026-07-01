@@ -96,6 +96,12 @@
 | [animus_discussion_export.md](../animus_discussion_export.md) | 最初三轮讨论：Animus 设定还原 → 现实 AI 技术可行性 → 创作等价性 | 60KB |
 | [docs/animus-setting-research.md](animus-setting-research.md) | Animus 完整设定：核心原理、代际演进（Alruh→Animus 4.3→HR-8→Hub）、现实实现必备设定要素 | 148KB，84 来源 |
 | [docs/hyped-broken-promises-ai-unlock.md](hyped-broken-promises-ai-unlock.md) | 8 条 AI 能力轴 × "被吹爆但没做到"的承诺 × 两层维度审视（欲望退烧 + AI 必要性 4 条件 gate） | 46KB |
+| [docs/fate-series-research-report.md](fate-series-research-report.md) | **v2 完整版**：Fate 系列核心卖点（4 核心 + 4 次核心 + 4 边缘）× 11 部主要游戏作品 × 8 维度对照矩阵 × 6 条未满足空间清单。基于 355 agents / 17.6M tokens / 34.8min 的两轮 workflow 调研（Round-1 baseline 19 confirmed + Round-2 gap-fill 35 + Critic follow-up 18 = **72 confirmed** + 11 refuted）。含粉丝原声引用（英文为主，中/日 caveat）+ Fate/EXTRA CCC 的 BB 作为 "AI 主导 HGW" 官方叙事先例 + 6 条 unmet gap 的 G1/G2/G3 与 4 条件 AND-gate 对照 | 约 24KB |
+| [docs/vision-pitch-wow-moments-handoff.md](vision-pitch-wow-moments-handoff.md) | **方向 B（圣杯战争 Agent 方向）Wow Moments 交接文档 · v1**。三个 Wow Moment 的完整分镜骨架 + tagline 定型 + 红线原则 + 3 个必现证据时刻对照兑现 + 4 条件 AND-gate 通过度对照。Wow 1: 召唤+空间灰模+记忆亲历+真名揭示（Iskandar 示范）; Wow 2: 一天时间线+上线并肩作战（Iskandar 继续）; Wow 3: 原创英灵召唤（一战工兵示范）+ tagline 收尾。交接给下一个 agent 做**具体内容设计**（分镜/台词/视觉参考/AI 生成规格） | 约 22KB |
+
+### 6.1 跨项目参考（未搬入本项目）
+
+- **FateClaw 项目**（[README](../../FateClaw/README.md)，位于 `D:/01-工作/Garena/GI/FateClaw/`）：同团队前置探索（v0），方向是 Agent 驱动的圣杯战争玩法（Master + Servant + 圣遗物召唤 + 多 agent 小镇战场）。MVP v1 于 2026-03-25 因复杂度膨胀封存，主线转向 TinyMB（极简骑砍规则验证）。作为本项目**圣杯战争 agent 方向**讨论的历史参考。
 
 ---
 
