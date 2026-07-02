@@ -4,3 +4,7 @@ Thumbs.db
 *.bak
 .env
 .claude/
+
+# 过程/验证产物，不进入仓库
+docs/superpowers/
+docs/assets/kingdom-hearts-pattern/qa-*.png

@@ -1,0 +1,2037 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kingdom Hearts 多世界范式视觉调研</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Crimson+Pro:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070912;
+      --panel: #101522;
+      --panel-2: #151d2c;
+      --ink: #eff6ff;
+      --muted: #a8b3c7;
+      --line: rgba(255,255,255,.14);
+      --gold: #f5c35c;
+      --rose: #ff4d73;
+      --cyan: #60d6ff;
+      --violet: #8a6cff;
+      --green: #80f0a8;
+      --shadow: rgba(0,0,0,.45);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Atkinson Hyperlegible", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(96,214,255,.14), transparent 32rem),
+        radial-gradient(circle at 88% 8%, rgba(245,195,92,.12), transparent 28rem),
+        linear-gradient(180deg, #080a12 0%, #101420 45%, #070912 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10;
+      background:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.8), transparent 80%);
+    }
+
+    a { color: inherit; }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(1440px, 100%);
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px clamp(18px, 4vw, 52px);
+      background: rgba(7,9,18,.84);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav strong {
+      font-family: "Crimson Pro", serif;
+      font-size: clamp(20px, 2vw, 28px);
+      letter-spacing: .02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 999px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: border-color .2s ease, color .2s ease, background .2s ease;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      color: var(--ink);
+      border-color: rgba(245,195,92,.7);
+      background: rgba(245,195,92,.08);
+      outline: none;
+    }
+
+    .hero {
+      position: relative;
+      min-height: clamp(330px, 36vh, 440px);
+      display: grid;
+      align-items: end;
+      padding: clamp(52px, 5vw, 72px) clamp(18px, 4vw, 52px) clamp(24px, 3vw, 36px);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background-image:
+        linear-gradient(90deg, rgba(7,9,18,.98) 0%, rgba(7,9,18,.74) 48%, rgba(7,9,18,.38) 100%),
+        url("../assets/kingdom-hearts-pattern/kh3-hero.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 18vh;
+      z-index: -1;
+      background: linear-gradient(to top, var(--bg), transparent);
+    }
+
+    .hero-copy {
+      width: min(880px, 100%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      color: var(--gold);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: .14em;
+      font-weight: 700;
+      opacity: .82;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    h1, h2, h3 {
+      font-family: "Crimson Pro", "Microsoft YaHei", serif;
+      margin: 0;
+      line-height: .95;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1.22;
+      max-width: 840px;
+      overflow-wrap: anywhere;
+    }
+
+    h2 {
+      font-size: clamp(36px, 6vw, 86px);
+    }
+
+    .section-head h2 {
+      font-size: clamp(18px, 4vw, 54px);
+      line-height: 1.06;
+      white-space: nowrap;
+    }
+
+    h3 {
+      font-size: clamp(24px, 3vw, 42px);
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: clamp(15px, 1.25vw, 18px);
+    }
+
+    .lead {
+      margin-top: 12px;
+      max-width: 700px;
+      color: #d9e7ff;
+      font-size: clamp(15px, 1.35vw, 18px);
+      overflow-wrap: anywhere;
+    }
+
+    .formula {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, auto));
+      gap: 6px;
+      align-items: center;
+      width: fit-content;
+      max-width: 100%;
+      padding: 8px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.28);
+      box-shadow: 0 16px 52px rgba(0,0,0,.32);
+    }
+
+    .formula span {
+      display: inline-flex;
+      min-height: 30px;
+      align-items: center;
+      padding: 0 9px;
+      background: rgba(255,255,255,.07);
+      color: var(--ink);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .formula b {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .section {
+      padding: clamp(62px, 8vw, 112px) clamp(18px, 4vw, 52px);
+      border-top: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(24px, 5vw, 70px);
+      align-items: end;
+      margin-bottom: clamp(30px, 5vw, 58px);
+    }
+
+    .section-kicker {
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .story-title {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 8px;
+    }
+
+    .story-title span {
+      width: fit-content;
+      padding: 7px 10px;
+      border: 1px solid rgba(96,214,255,.42);
+      color: var(--cyan);
+      background: rgba(96,214,255,.08);
+      font-size: 12px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .story-title h3 {
+      font-size: 36px;
+      line-height: 1;
+      max-width: 520px;
+    }
+
+    .story-breakdown {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.2);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.018)),
+        radial-gradient(circle at 74% 20%, rgba(245,195,92,.18), transparent 25%),
+        radial-gradient(circle at 42% 42%, rgba(96,214,255,.18), transparent 31%),
+        radial-gradient(circle at 50% 84%, rgba(255,77,115,.16), transparent 34%),
+        rgba(8,10,20,.8);
+      box-shadow: inset 0 0 90px rgba(96,214,255,.1), 0 28px 90px var(--shadow);
+      padding: clamp(22px, 4vw, 42px);
+      display: grid;
+      gap: clamp(22px, 3vw, 34px);
+    }
+
+    .story-breakdown::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.8), transparent 78%);
+    }
+
+    .spine-feature {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 22px;
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(circle at 78% 18%, rgba(245,195,92,.18), transparent 26%),
+        radial-gradient(circle at 36% 66%, rgba(96,214,255,.16), transparent 30%),
+        linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+      overflow: hidden;
+    }
+
+    .kh-journey-figure {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 14px;
+    }
+
+    .kh-journey-map {
+      position: relative;
+      min-height: 0;
+      padding: clamp(18px, 2.2vw, 28px);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.18);
+      background:
+        radial-gradient(circle at 18% 16%, rgba(96,214,255,.18), transparent 23%),
+        radial-gradient(circle at 78% 34%, rgba(245,195,92,.16), transparent 26%),
+        radial-gradient(circle at 50% 88%, rgba(255,77,115,.15), transparent 32%),
+        linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.016));
+      box-shadow: inset 0 0 90px rgba(96,214,255,.09), 0 30px 100px rgba(0,0,0,.28);
+    }
+
+    .kh-journey-map::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.8), transparent 88%);
+    }
+
+    .journey-map-title {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+
+    .journey-map-title span {
+      color: var(--cyan);
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .journey-map-title h4 {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Crimson Pro", "Microsoft YaHei", serif;
+      font-size: clamp(28px, 3.3vw, 48px);
+      line-height: .95;
+    }
+
+    .journey-route {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(280px, 1fr));
+      gap: clamp(14px, 1.4vw, 20px);
+      align-items: stretch;
+      padding-top: 18px;
+    }
+
+    .journey-route::before {
+      content: none;
+    }
+
+    .planet-node {
+      position: relative;
+      z-index: 2;
+      min-height: 0;
+      min-width: 0;
+    }
+
+    .planet-node:nth-child(7) {
+      grid-column: 2;
+    }
+
+    .world-composite {
+      position: relative;
+      margin: 0;
+      width: 100%;
+      min-height: 300px;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.05);
+      box-shadow: 0 18px 48px rgba(0,0,0,.34), inset 0 0 36px rgba(96,214,255,.08);
+    }
+
+    .world-composite::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(255,255,255,.22), transparent 24%),
+        linear-gradient(to bottom, rgba(7,9,18,.08), rgba(7,9,18,.74));
+    }
+
+    .world-composite::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      z-index: 2;
+      height: 26%;
+      pointer-events: none;
+      background: linear-gradient(to top, rgba(7,9,18,.9), transparent);
+    }
+
+    .world-composite .scene-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.1) contrast(1.08);
+      transform: scale(1.04);
+    }
+
+    .world-label {
+      position: relative;
+      z-index: 5;
+      display: grid;
+      gap: 3px;
+      padding: 12px;
+      width: max-content;
+      max-width: calc(100% - 24px);
+    }
+
+    .world-label span {
+      width: max-content;
+      padding: 4px 7px;
+      border: 1px solid rgba(245,195,92,.42);
+      color: var(--gold);
+      background: rgba(7,9,18,.72);
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .world-label strong {
+      display: block;
+      color: #ffffff;
+      font-size: clamp(20px, 1.7vw, 28px);
+      line-height: 1.05;
+      text-shadow: 0 3px 18px rgba(0,0,0,.78);
+    }
+
+    .role {
+      position: absolute;
+      z-index: 3;
+      left: var(--l, auto);
+      right: var(--r, auto);
+      bottom: var(--b, 8%);
+      width: var(--w, 28%);
+      max-height: var(--mh, 68%);
+      object-fit: contain;
+      filter: drop-shadow(0 14px 16px rgba(0,0,0,.72));
+    }
+
+    .role.sora {
+      z-index: 4;
+    }
+
+    .role-group {
+      position: absolute;
+      z-index: 3;
+      left: var(--l, auto);
+      right: var(--r, auto);
+      bottom: var(--b, 8%);
+      width: var(--w, 34%);
+      height: var(--h, 62%);
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    .role-group img {
+      max-width: 62%;
+      max-height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 14px 16px rgba(0,0,0,.72));
+    }
+
+    .role-group img + img {
+      margin-left: -13%;
+    }
+
+    .map-badge {
+      position: absolute;
+      left: 18px;
+      top: 18px;
+      z-index: 2;
+      padding: 9px 12px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.58);
+      color: var(--cyan);
+      font-size: 12px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .feature-copy {
+      padding: clamp(24px, 4vw, 42px);
+      display: grid;
+      align-content: center;
+      gap: 16px;
+    }
+
+    .feature-copy p {
+      color: #dbe6f5;
+      font-size: clamp(16px, 1.35vw, 19px);
+      line-height: 1.65;
+    }
+
+    .feature-points {
+      display: grid;
+      gap: 10px;
+    }
+
+    .feature-points span {
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,.17);
+      background: rgba(255,255,255,.045);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .feature-points strong {
+      display: block;
+      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .conflict-feature {
+      padding: clamp(20px, 3vw, 30px);
+    }
+
+    .conflict-head {
+      display: grid;
+      grid-template-columns: minmax(0, .85fr) minmax(320px, 1fr);
+      gap: 18px;
+      align-items: end;
+    }
+
+    .conflict-head p {
+      color: #dbe6f5;
+      font-size: clamp(16px, 1.35vw, 19px);
+      line-height: 1.65;
+    }
+
+    .rule-track {
+      display: grid;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .rule-track + .rule-track {
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+
+    .track-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .track-head b {
+      display: block;
+      color: var(--cyan);
+      font-size: 12px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .track-head h4 {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(24px, 2.4vw, 34px);
+      line-height: 1.05;
+    }
+
+    .track-head p {
+      max-width: 560px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .localized-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .localized-card {
+      position: relative;
+      min-height: 390px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.04);
+      display: grid;
+      grid-template-rows: 240px auto;
+    }
+
+    .localized-card .world-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .28;
+      filter: saturate(1.08) contrast(1.05);
+    }
+
+    .localized-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(7,9,18,.96) 0%, rgba(7,9,18,.62) 45%, rgba(7,9,18,.25) 100%);
+    }
+
+    .enemy-stage {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      place-items: end center;
+      padding: 28px 18px 0;
+    }
+
+    .enemy-stage img {
+      max-width: 92%;
+      max-height: 230px;
+      object-fit: contain;
+      filter: drop-shadow(0 22px 34px rgba(0,0,0,.56));
+    }
+
+    .sora-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .sora-form-card {
+      position: relative;
+      min-height: 500px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.15);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025)),
+        rgba(255,255,255,.035);
+      display: grid;
+      grid-template-rows: 328px auto;
+    }
+
+    .sora-form-card .figure {
+      display: grid;
+      place-items: end center;
+      padding: 22px 14px 0;
+      background:
+        radial-gradient(circle at 50% 82%, rgba(245,195,92,.2), transparent 42%),
+        linear-gradient(180deg, rgba(255,255,255,.05), transparent);
+    }
+
+    .sora-form-card .figure img {
+      max-height: 306px;
+      max-width: 98%;
+      object-fit: contain;
+      filter: drop-shadow(0 22px 32px rgba(0,0,0,.58));
+    }
+
+    .sora-form-card .body {
+      padding: 16px;
+      display: grid;
+      gap: 9px;
+      align-content: start;
+    }
+
+    .sora-form-card .body b {
+      color: var(--green);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .sora-form-card .body h4 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 21px;
+      line-height: 1.08;
+    }
+
+    .sora-form-card .body p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .localized-copy {
+      position: relative;
+      z-index: 1;
+      padding: 18px;
+      display: grid;
+      gap: 9px;
+      align-content: start;
+    }
+
+    .localized-copy b {
+      color: var(--cyan);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .localized-copy h4 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 22px;
+      line-height: 1.05;
+    }
+
+    .localized-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .step-heading {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .step-heading .num {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(245,195,92,.5);
+      color: var(--gold);
+      background: rgba(245,195,92,.08);
+      font-weight: 800;
+    }
+
+    .step-heading b {
+      display: block;
+      color: var(--ink);
+      font-size: 18px;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .step-heading span {
+      color: var(--cyan);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .pattern-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(190px, 1fr));
+      gap: 16px;
+    }
+
+    .subsection-label {
+      margin: 0 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--gold);
+      font-size: 13px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .subsection-label::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(to right, rgba(245,195,92,.5), transparent);
+    }
+
+    .world-card {
+      display: grid;
+      grid-template-rows: 190px auto;
+      min-height: 520px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.055);
+      box-shadow: 0 20px 80px rgba(0,0,0,.24);
+    }
+
+    .world-card .poster {
+      position: relative;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .world-card .poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .world-card .poster::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(7,9,18,.72), transparent 55%);
+    }
+
+    .world-card .tag {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      z-index: 1;
+      display: inline-flex;
+      padding: 7px 10px;
+      background: rgba(0,0,0,.62);
+      color: var(--gold);
+      border: 1px solid rgba(245,195,92,.4);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .world-card .content {
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .world-card h3 {
+      font-size: 30px;
+      line-height: 1;
+    }
+
+    .case-study {
+      margin-top: 42px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .case-hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 520px;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.04);
+      box-shadow: 0 26px 90px rgba(0,0,0,.28);
+    }
+
+    .case-hero > img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.12) contrast(1.05);
+    }
+
+    .case-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, rgba(7,9,18,.96), rgba(7,9,18,.16) 56%, rgba(7,9,18,.68)),
+        radial-gradient(circle at 25% 78%, rgba(245,195,92,.2), transparent 32%);
+    }
+
+    .case-hero-content {
+      position: absolute;
+      inset: auto 24px 24px;
+      z-index: 1;
+      display: grid;
+      gap: 14px;
+    }
+
+    .case-logo {
+      max-width: 260px;
+      max-height: 92px;
+      object-fit: contain;
+      filter: drop-shadow(0 14px 18px rgba(0,0,0,.58));
+    }
+
+    .case-hero h3 {
+      font-size: 54px;
+      line-height: .9;
+    }
+
+    .case-hero p {
+      max-width: 720px;
+      color: #e8eef8;
+      font-size: 17px;
+      line-height: 1.55;
+    }
+
+    .case-breakdown {
+      display: grid;
+      gap: 18px;
+    }
+
+    .case-row {
+      display: grid;
+      grid-template-columns: minmax(360px, .95fr) minmax(420px, 1.05fr);
+      min-height: 360px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.085), rgba(255,255,255,.026)),
+        rgba(255,255,255,.035);
+      box-shadow: 0 22px 80px rgba(0,0,0,.22);
+    }
+
+    .case-row.reverse {
+      grid-template-columns: minmax(420px, 1.05fr) minmax(360px, .95fr);
+    }
+
+    .case-row.reverse .case-visual {
+      order: 2;
+    }
+
+    .case-row.reverse .case-copy {
+      order: 1;
+    }
+
+    .case-row.evidence-row {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+
+    .case-visual {
+      position: relative;
+      min-height: 360px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 62%, rgba(245,195,92,.18), transparent 38%),
+        radial-gradient(circle at 30% 22%, rgba(96,214,255,.14), transparent 32%),
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.012));
+    }
+
+    .case-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(to top, rgba(7,9,18,.35), transparent 45%),
+        linear-gradient(90deg, rgba(7,9,18,.32), transparent 30%, transparent 70%, rgba(7,9,18,.24));
+    }
+
+    .case-visual img {
+      position: relative;
+      z-index: 1;
+      max-width: 92%;
+      max-height: 320px;
+      object-fit: contain;
+      filter: drop-shadow(0 22px 34px rgba(0,0,0,.5));
+    }
+
+    .case-visual img.scene {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      max-height: none;
+      object-fit: cover;
+      filter: saturate(1.12) contrast(1.06);
+    }
+
+    .evidence-row .case-copy {
+      align-content: start;
+      padding-bottom: 8px;
+    }
+
+    .evidence-row .case-copy p {
+      max-width: 960px;
+    }
+
+    .evidence-visual {
+      display: block;
+      min-height: 0;
+      padding: 0 clamp(24px, 4vw, 44px) clamp(24px, 4vw, 44px);
+      background: transparent;
+    }
+
+    .evidence-visual::after {
+      content: none;
+    }
+
+    .evidence-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      width: 100%;
+      height: auto;
+    }
+
+    .evidence-card {
+      position: relative;
+      overflow: hidden;
+      margin: 0;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(420px, 1.18fr) minmax(320px, .82fr);
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.045);
+    }
+
+    .evidence-card.primary {
+      grid-row: auto;
+    }
+
+    .evidence-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      max-width: none;
+      max-height: none;
+      object-fit: cover;
+      filter: saturate(1.12) contrast(1.05);
+    }
+
+    .evidence-card::after {
+      content: none;
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(7,9,18,.82), rgba(7,9,18,.05) 56%);
+      z-index: 1;
+    }
+
+    .evidence-caption {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      align-content: center;
+      gap: 8px;
+      padding: clamp(18px, 2.5vw, 28px);
+      background:
+        linear-gradient(135deg, rgba(7,9,18,.92), rgba(17,24,38,.72)),
+        rgba(255,255,255,.035);
+    }
+
+    .evidence-caption b {
+      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .evidence-caption span {
+      color: #f2f7ff;
+      font-size: clamp(16px, 1.35vw, 19px);
+      line-height: 1.55;
+      font-weight: 650;
+    }
+
+    .case-visual .ghost-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      max-height: none;
+      object-fit: cover;
+      opacity: .24;
+      filter: saturate(1.1) blur(1px);
+    }
+
+    .case-visual .duo {
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      gap: clamp(14px, 3vw, 34px);
+      width: 100%;
+      padding: 28px;
+      z-index: 1;
+    }
+
+    .case-visual .duo img {
+      max-height: 300px;
+      width: auto;
+    }
+
+    .case-visual .duo img.small {
+      max-height: 230px;
+    }
+
+    .case-visual .duo.cast {
+      gap: clamp(8px, 2vw, 22px);
+    }
+
+    .case-visual .duo.cast img {
+      max-width: 25%;
+      max-height: 270px;
+    }
+
+    .case-visual .duo.cast img.small {
+      max-width: 16%;
+      max-height: 170px;
+    }
+
+    .case-visual .duo.conflict img {
+      max-height: 318px;
+    }
+
+    .case-visual .duo.conflict img.small {
+      max-height: 220px;
+    }
+
+    .case-visual img.hero-figure {
+      max-height: 340px;
+    }
+
+    .visual-tags {
+      position: absolute;
+      z-index: 2;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .visual-tags span {
+      padding: 7px 9px;
+      border: 1px solid rgba(96,214,255,.32);
+      background: rgba(7,9,18,.7);
+      color: #dff5ff;
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: .03em;
+    }
+
+    .case-copy {
+      padding: clamp(24px, 4vw, 44px);
+      display: grid;
+      align-content: center;
+      gap: 16px;
+    }
+
+    .case-copy b {
+      display: block;
+      color: var(--cyan);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .case-copy h4 {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(28px, 3.2vw, 44px);
+      line-height: 1.12;
+      padding-bottom: 4px;
+      max-width: 720px;
+    }
+
+    .case-copy p {
+      color: #dbe6f5;
+      font-size: clamp(16px, 1.35vw, 19px);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .case-points {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .case-points span {
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.045);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .case-points strong {
+      display: block;
+      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .matrix {
+      display: grid;
+      gap: 10px;
+    }
+
+    .matrix div {
+      padding: 10px 0 0;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+
+    .matrix b {
+      display: block;
+      color: var(--cyan);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .matrix span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .source-list {
+      columns: 2;
+      column-gap: 44px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+      padding-left: 18px;
+    }
+
+    .source-list li {
+      break-inside: avoid;
+      margin-bottom: 7px;
+    }
+
+    .source-list a {
+      color: #cde8ff;
+    }
+
+    @media (max-width: 1120px) {
+      .case-study,
+      .section-head {
+        grid-template-columns: 1fr;
+      }
+
+      .story-breakdown {
+        padding: 20px;
+      }
+
+      .conflict-feature {
+        padding: 18px;
+      }
+
+      .formula {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        width: 100%;
+      }
+
+      .formula span {
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+
+      .pattern-grid {
+        grid-template-columns: repeat(2, minmax(240px, 1fr));
+      }
+
+      .case-row,
+      .case-row.reverse {
+        grid-template-columns: 1fr;
+      }
+
+      .case-row.reverse .case-visual,
+      .case-row.reverse .case-copy {
+        order: initial;
+      }
+
+      .evidence-card {
+        grid-template-columns: 1fr;
+      }
+
+      .conflict-head {
+        grid-template-columns: 1fr;
+      }
+
+      .step-heading {
+        min-width: 0;
+      }
+
+      .localized-grid {
+        grid-template-columns: repeat(2, minmax(240px, 1fr));
+      }
+
+      .journey-route {
+        grid-template-columns: repeat(2, minmax(280px, 1fr));
+        gap: 16px;
+      }
+
+      .world-composite {
+        min-height: 300px;
+      }
+
+      .planet-node:nth-child(7) {
+        grid-column: auto;
+      }
+
+    }
+
+    @media (max-width: 720px) {
+      .hero {
+        min-height: auto;
+        padding-top: 38px;
+        padding-bottom: 28px;
+      }
+
+      .hero h1 {
+        font-size: clamp(32px, 8vw, 42px);
+      }
+
+      .lead {
+        margin-top: 12px;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .formula {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 14px;
+        width: 100%;
+      }
+
+      .formula span {
+        justify-content: center;
+        min-height: 28px;
+        padding: 6px 8px;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.25;
+      }
+
+      .formula span:nth-child(4),
+      .formula span:nth-child(5) {
+        grid-column: 1 / -1;
+      }
+
+      .pattern-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .case-hero {
+        min-height: 480px;
+      }
+
+      .case-visual {
+        min-height: 300px;
+      }
+
+      .evidence-visual {
+        min-height: 0;
+        padding: 0 18px 24px;
+      }
+
+      .evidence-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
+      }
+
+      .evidence-card.primary {
+        grid-row: auto;
+      }
+
+      .evidence-caption {
+        padding: 16px;
+      }
+
+      .case-visual .duo {
+        gap: 8px;
+        padding: 18px;
+      }
+
+      .case-visual .duo img {
+        max-height: 238px;
+        max-width: 35%;
+      }
+
+      .case-visual .duo img.small {
+        max-height: 180px;
+        max-width: 28%;
+      }
+
+      .case-points {
+        grid-template-columns: 1fr;
+      }
+
+      .kh-journey-map {
+        min-height: 0;
+        padding: 20px;
+      }
+
+      .journey-route {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding-top: 6px;
+      }
+
+      .journey-route::before {
+        content: none;
+      }
+
+      .planet-node {
+        width: 100%;
+      }
+
+      .world-composite {
+        min-height: 280px;
+        aspect-ratio: 4 / 3;
+      }
+
+      .journey-map-title h4 {
+        font-size: 32px;
+      }
+
+      .world-label strong {
+        font-size: 22px;
+      }
+
+      .conflict-feature {
+        padding: 16px;
+      }
+
+      .track-head {
+        display: grid;
+        gap: 10px;
+      }
+
+      .localized-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .localized-card {
+        min-height: 390px;
+      }
+
+      .sora-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sora-form-card {
+        min-height: 470px;
+      }
+
+      .sora-form-card .figure {
+        min-height: 306px;
+      }
+
+      .source-list {
+        columns: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+<style>
+  .site-nav{position:fixed;top:0;left:0;right:0;z-index:9999;display:flex;align-items:center;gap:16px;padding:10px 20px;background:rgba(8,10,18,.72);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid rgba(255,255,255,.08);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif;font-size:13px;letter-spacing:.02em;color:rgba(255,255,255,.9)}
+  .site-nav a{color:rgba(255,255,255,.7);text-decoration:none;padding:6px 12px;border-radius:6px;transition:color .18s,background .18s;white-space:nowrap}
+  .site-nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+  .site-nav a[aria-current="page"]{color:#fff;background:rgba(255,255,255,.14);font-weight:500}
+  .site-nav__home{font-size:12px;opacity:.85}
+  .site-nav__links{display:flex;gap:4px;margin-left:auto}
+  body{padding-top:46px}
+  @media (max-width:720px){.site-nav{padding:8px 12px;gap:10px;font-size:12px}.site-nav a{padding:5px 8px}body{padding-top:42px}}
+</style>
+</head>
+<body>
+<nav class="site-nav" aria-label="站内导航">
+  <a class="site-nav__home" href="index.html">← 主页</a>
+  <div class="site-nav__links">
+    <a href="living-planet-vision.html">活着的星球</a>
+    <a href="kingdom-hearts-world-pattern.html" aria-current="page">Kingdom Hearts 范式</a>
+    <a href="grail-war-agent-vision.html">圣杯战争 × Agent</a>
+  </div>
+</nav>
+  <main class="page">
+    <nav class="nav" aria-label="章节导航">
+      <strong>Kingdom Hearts 世界设计范式</strong>
+      <div class="nav-links">
+        <a href="#overview">1 总览</a>
+        <a href="#world-pattern">2 单世界范式</a>
+        <a href="#sources">资料来源</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-copy">
+        <div class="eyebrow">Visual Research Board</div>
+        <h1>一个入口，打开多个由光暗主线串联的主题世界。</h1>
+        <p class="lead">《王国之心》的多世界结构不是单纯 IP 串场。它把 Disney / Pixar 世界做成可进入、可并肩作战、并会接入主线冲突的章节空间。</p>
+        <div class="formula" aria-label="王国之心世界章节公式">
+          <span><b>入口</b>：世界旅行</span>
+          <span><b>主题包</b>：Disney / Pixar IP</span>
+          <span><b>当地角色</b>：临时伙伴</span>
+          <span><b>主线冲突</b>：Heartless / darkness</span>
+          <span><b>推进</b>：世界问题接回主线</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="section" id="overview">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">01 / 总览</div>
+          <h2>世界规则分别改写主角和 Heartless</h2>
+        </div>
+      </div>
+
+      <div class="story-breakdown" aria-label="主线串联两段图解">
+        <div class="story-title">
+          <span>Main Story Spine</span>
+          <h3>主线不是口号，而是一套可见的本地化机制</h3>
+        </div>
+
+        <article class="kh-journey-figure" aria-label="The Journey of Kingdom Hearts I-III 示意图">
+          <div class="kh-journey-map">
+            <div class="journey-map-title">
+              <span>Custom Diagram / KH I-III</span>
+              <h4>The Journey of Kingdom Hearts</h4>
+            </div>
+
+            <div class="journey-route">
+              <article class="planet-node" data-game="KH1">
+                <figure class="world-composite">
+                  <img class="scene-bg" src="../assets/kingdom-hearts-pattern/atlantica-world.jpg" alt="小美人鱼主题世界背景">
+                  <div class="world-label"><span>KH1 / 01</span><strong>小美人鱼</strong></div>
+                  <img class="role" style="--l: 4%; --b: 13%; --w: 28%; --mh: 58%;" src="../assets/kingdom-hearts-pattern/sea-neon.png" alt="Sea Neon Heartless">
+                  <img class="role sora" style="--l: 35%; --b: 8%; --w: 28%; --mh: 68%;" src="../assets/kingdom-hearts-pattern/sora-atlantica.png" alt="海底形态索拉">
+                  <img class="role" style="--r: 3%; --b: 8%; --w: 34%; --mh: 70%;" src="../assets/kingdom-hearts-pattern/ariel.png" alt="Ariel">
+                </figure>
+              </article>
+
+              <article class="planet-node" data-game="KH1">
+                <figure class="world-composite">
+                  <img class="scene-bg" src="../assets/kingdom-hearts-pattern/halloween-world.jpg" alt="圣诞夜惊魂主题世界背景">
+                  <div class="world-label"><span>KH1 / 02</span><strong>圣诞夜惊魂</strong></div>
+                  <img class="role" style="--l: 3%; --b: 8%; --w: 28%; --mh: 66%;" src="../assets/kingdom-hearts-pattern/wight-knight.png" alt="Wight Knight Heartless">
+                  <img class="role sora" style="--l: 36%; --b: 7%; --w: 25%; --mh: 66%;" src="../assets/kingdom-hearts-pattern/sora-halloween.png" alt="万圣节形态索拉">
+                  <img class="role" style="--r: 4%; --b: 7%; --w: 32%; --mh: 70%;" src="../assets/kingdom-hearts-pattern/jack-skellington.png" alt="Jack Skellington">
+                </figure>
+              </article>
+
+              <article class="planet-node" data-game="KH2">
+                <figure class="world-composite">
+                  <img class="scene-bg" src="../assets/kingdom-hearts-pattern/pride-world.png" alt="狮子王主题世界背景">
+                  <div class="world-label"><span>KH2 / 03</span><strong>狮子王</strong></div>
+                  <img class="role" style="--l: 0%; --b: 6%; --w: 38%; --mh: 70%;" src="../assets/kingdom-hearts-pattern/living-bone.png" alt="Living Bone Heartless">
+                  <img class="role sora" style="--l: 42%; --b: 8%; --w: 24%; --mh: 52%;" src="../assets/kingdom-hearts-pattern/sora-pride.png" alt="幼狮形态索拉">
+                  <img class="role" style="--r: 2%; --b: 8%; --w: 31%; --mh: 58%;" src="../assets/kingdom-hearts-pattern/simba.png" alt="Simba">
+                </figure>
+              </article>
+
+              <article class="planet-node" data-game="KH2">
+                <figure class="world-composite">
+                  <img class="scene-bg" src="../assets/kingdom-hearts-pattern/port-royal-world.png" alt="加勒比海盗主题世界背景">
+                  <div class="world-label"><span>KH2 / 04</span><strong>加勒比海盗</strong></div>
+                  <img class="role" style="--l: 3%; --b: 6%; --w: 32%; --mh: 70%;" src="../assets/kingdom-hearts-pattern/pirate-heartless.png" alt="Pirate Heartless">
+                  <img class="role sora" style="--l: 39%; --b: 7%; --w: 25%; --mh: 64%;" src="../assets/kingdom-hearts-pattern/sora.png" alt="索拉">
+                  <img class="role" style="--r: 3%; --b: 7%; --w: 31%; --mh: 68%;" src="../assets/kingdom-hearts-pattern/jack.png" alt="Jack Sparrow">
+                </figure>
+              </article>
+
+              <article class="planet-node" data-game="KH3">
+                <figure class="world-composite">
+                  <img class="scene-bg" src="../assets/kingdom-hearts-pattern/toybox-trailer.jpg" alt="玩具总动员主题世界背景">
+                  <div class="world-label"><span>KH3 / 05</span><strong>玩具总动员</strong></div>
+                  <img class="role" style="--l: 3%; --b: 6%; --w: 30%; --mh: 66%;" src="../assets/kingdom-hearts-pattern/toy-trooper.png" alt="Toy Trooper Heartless">
+                  <img class="role sora" style="--l: 35%; --b: 6%; --w: 25%; --mh: 62%;" src="../assets/kingdom-hearts-pattern/sora-toybox.png" alt="玩具形态索拉">
+                  <div class="role-group" style="--r: 1%; --b: 7%; --w: 43%; --h: 66%;">
+                    <img src="../assets/kingdom-hearts-pattern/woody.png" alt="Woody">
+                    <img src="../assets/kingdom-hearts-pattern/buzz.png" alt="Buzz Lightyear">
+                  </div>
+                </figure>
+              </article>
+
+              <article class="planet-node" data-game="KH3">
+                <figure class="world-composite">
+                  <img class="scene-bg" src="../assets/kingdom-hearts-pattern/monstropolis-trailer.jpg" alt="怪兽电力公司主题世界背景">
+                  <div class="world-label"><span>KH3 / 06</span><strong>怪兽电力公司</strong></div>
+                  <img class="role" style="--l: 1%; --b: 5%; --w: 33%; --mh: 68%;" src="../assets/kingdom-hearts-pattern/lump-of-horror.png" alt="Lump of Horror 黑暗敌人">
+                  <img class="role sora" style="--l: 34%; --b: 5%; --w: 27%; --mh: 66%;" src="../assets/kingdom-hearts-pattern/sora-monstropolis.png" alt="怪物形态索拉">
+                  <div class="role-group" style="--r: 1%; --b: 7%; --w: 42%; --h: 68%;">
+                    <img src="../assets/kingdom-hearts-pattern/mike.png" alt="Mike Wazowski">
+                    <img src="../assets/kingdom-hearts-pattern/sully.png" alt="Sulley">
+                  </div>
+                </figure>
+              </article>
+
+              <article class="planet-node" data-game="KH3">
+                <figure class="world-composite">
+                  <img class="scene-bg" src="../assets/kingdom-hearts-pattern/arendelle-trailer.jpg" alt="冰雪奇缘主题世界背景">
+                  <div class="world-label"><span>KH3 / 07</span><strong>冰雪奇缘</strong></div>
+                  <img class="role" style="--l: 3%; --b: 7%; --w: 30%; --mh: 66%;" src="../assets/kingdom-hearts-pattern/winterhorn.png" alt="Winterhorn Heartless">
+                  <img class="role sora" style="--l: 38%; --b: 7%; --w: 25%; --mh: 64%;" src="../assets/kingdom-hearts-pattern/sora.png" alt="索拉">
+                  <div class="role-group" style="--r: 0%; --b: 7%; --w: 48%; --h: 68%;">
+                    <img src="../assets/kingdom-hearts-pattern/elsa.png" alt="Elsa">
+                    <img src="../assets/kingdom-hearts-pattern/olaf.png" alt="Olaf">
+                  </div>
+                </figure>
+              </article>
+            </div>
+          </div>
+        </article>
+
+        <article class="spine-feature conflict-feature">
+          <div class="conflict-head">
+            <div class="step-heading">
+              <span class="num">2</span>
+              <div><b>拆开看：Heartless 变体与索拉变体</b><span>Shared Rule, Separate Displays</span></div>
+            </div>
+            <p>同一种世界规则会分别作用到两类外来元素：Heartless 被重画成当地敌人，索拉被重写成当地居民/行动者。两类变化要分开看，才看得清 KH 如何把 IP 世界从背景变成规则。</p>
+          </div>
+
+          <section class="rule-track" aria-label="索拉在不同世界中的形象变化">
+            <div class="track-head">
+              <div>
+                <b>Track A / Sora world forms</b>
+                <h4>同一个主角，进入世界后先被改写</h4>
+              </div>
+              <p>这里单独看索拉：KH 的强点是让玩家 avatar 也服从世界规则。海底、怪诞城镇、动物生态、玩具比例、怪物社会都直接改写索拉的身体与身份。</p>
+            </div>
+
+            <div class="sora-grid">
+              <article class="sora-form-card">
+                <div class="figure">
+                  <img src="../assets/kingdom-hearts-pattern/sora-atlantica.png" alt="Atlantica 中的索拉海底形态">
+                </div>
+                <div class="body">
+                  <b>小美人鱼</b>
+                  <h4>海底形态</h4>
+                  <p>索拉变成海中形态，玩家先获得“能在水下行动”的身体规则。</p>
+                </div>
+              </article>
+
+              <article class="sora-form-card">
+                <div class="figure">
+                  <img src="../assets/kingdom-hearts-pattern/sora-halloween.png" alt="Halloween Town 中的索拉万圣节形态">
+                </div>
+                <div class="body">
+                  <b>圣诞夜惊魂</b>
+                  <h4>万圣节形态</h4>
+                  <p>索拉被改成怪诞城镇的视觉风格，外来者先被本地审美同化。</p>
+                </div>
+              </article>
+
+              <article class="sora-form-card">
+                <div class="figure">
+                  <img src="../assets/kingdom-hearts-pattern/sora-pride.png" alt="Pride Lands 中的索拉狮子形态">
+                </div>
+                <div class="body">
+                  <b>狮子王</b>
+                  <h4>幼狮形态</h4>
+                  <p>索拉变成四足动物，移动方式、身体比例和生态身份都被重写。</p>
+                </div>
+              </article>
+
+              <article class="sora-form-card">
+                <div class="figure">
+                  <img src="../assets/kingdom-hearts-pattern/sora-toybox.png" alt="Toy Box 中的索拉玩具形态">
+                </div>
+                <div class="body">
+                  <b>玩具总动员</b>
+                  <h4>玩具形态</h4>
+                  <p>索拉变成玩具，儿童房和商场因此被重新理解为冒险空间。</p>
+                </div>
+              </article>
+
+              <article class="sora-form-card">
+                <div class="figure">
+                  <img src="../assets/kingdom-hearts-pattern/sora-monstropolis.png" alt="Monstropolis 中的索拉怪物形态">
+                </div>
+                <div class="body">
+                  <b>怪兽电力公司</b>
+                  <h4>怪物形态</h4>
+                  <p>索拉以怪物身份进入工厂，先成为当地居民，再参与当地危机。</p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="rule-track" aria-label="Heartless 在不同世界中的形象变化">
+            <div class="track-head">
+              <div>
+                <b>Track B / Heartless localization</b>
+                <h4>同一类黑暗敌人，被不同 IP 世界重画</h4>
+              </div>
+              <p>这里单独看 Heartless / darkness：敌人仍服务同一条主线，但外形、材质、武器和行动气质会被每个世界本地化。</p>
+            </div>
+
+            <div class="localized-grid">
+              <article class="localized-card">
+                <img class="world-bg" src="../assets/kingdom-hearts-pattern/atlantica-world.jpg" alt="小美人鱼海底世界背景">
+                <div class="enemy-stage">
+                  <img src="../assets/kingdom-hearts-pattern/sea-neon.png" alt="Sea Neon Heartless 官方图">
+                </div>
+                <div class="localized-copy">
+                  <b>小美人鱼 / 海底语法</b>
+                  <h4>Sea Neon 像水母</h4>
+                  <p>Heartless 变成水下生物轮廓，颜色、漂浮姿态和攻击方式都贴近 Atlantica 的海底环境。</p>
+                </div>
+              </article>
+
+              <article class="localized-card">
+                <img class="world-bg" src="../assets/kingdom-hearts-pattern/halloween-world.jpg" alt="圣诞夜惊魂怪诞城镇背景">
+                <div class="enemy-stage">
+                  <img src="../assets/kingdom-hearts-pattern/wight-knight.png" alt="Wight Knight Heartless 官方图">
+                </div>
+                <div class="localized-copy">
+                  <b>圣诞夜惊魂 / 怪诞语法</b>
+                  <h4>Wight Knight 像万圣节怪物</h4>
+                  <p>敌人被改成瘦长、扭曲、怪诞的剪影，进入 Halloween Town 的惊悚喜剧视觉系统。</p>
+                </div>
+              </article>
+
+              <article class="localized-card">
+                <img class="world-bg" src="../assets/kingdom-hearts-pattern/pride-world.png" alt="狮子王动物世界背景">
+                <div class="enemy-stage">
+                  <img src="../assets/kingdom-hearts-pattern/living-bone.png" alt="Living Bone Heartless 官方图">
+                </div>
+                <div class="localized-copy">
+                  <b>狮子王 / 动物生态</b>
+                  <h4>Living Bone 像骨架野兽</h4>
+                  <p>Heartless 变成动物型骨架敌人，和 Pride Lands 的草原生态、兽群冲突、动物身体规则接在一起。</p>
+                </div>
+              </article>
+
+              <article class="localized-card">
+                <img class="world-bg" src="../assets/kingdom-hearts-pattern/toybox-trailer.jpg" alt="玩具总动员 Toy Box 背景">
+                <div class="enemy-stage">
+                  <img src="../assets/kingdom-hearts-pattern/toy-trooper.png" alt="Toy Trooper Heartless 官方图">
+                </div>
+                <div class="localized-copy">
+                  <b>玩具总动员 / 玩具语法</b>
+                  <h4>Toy Trooper 像玩具兵</h4>
+                  <p>Heartless 被设计成 action figure 式敌人，带玩具枪、喷射背包和玩具士兵轮廓。</p>
+                </div>
+              </article>
+
+              <article class="localized-card">
+                <img class="world-bg" src="../assets/kingdom-hearts-pattern/arendelle-trailer.jpg" alt="冰雪奇缘 Arendelle 背景">
+                <div class="enemy-stage">
+                  <img src="../assets/kingdom-hearts-pattern/winterhorn.png" alt="Winterhorn Heartless 官方图">
+                </div>
+                <div class="localized-copy">
+                  <b>冰雪奇缘 / 冰雪语法</b>
+                  <h4>Winterhorn 像冰角驯鹿</h4>
+                  <p>Heartless 被改成带冰晶鹿角的形态，接入 Arendelle 的雪山、冰属性和恐惧主题。</p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+        </article>
+      </div>
+
+    </section>
+
+    <section class="section" id="world-pattern">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">02 / 单个世界范式</div>
+          <h2>先看共性矩阵，再拆一个世界如何落地</h2>
+        </div>
+      </div>
+
+      <div class="subsection-label">Overview Matrix / 五个世界共用的结构</div>
+      <div class="pattern-grid">
+        <article class="world-card">
+          <div class="poster">
+            <img src="../assets/kingdom-hearts-pattern/toybox-trailer.jpg" alt="Toy Box 视频缩略图">
+            <span class="tag">Pixar / Toy Story</span>
+          </div>
+          <div class="content">
+            <h3>Toy Box</h3>
+            <div class="matrix">
+              <div><b>主题包</b><span>玩具比例、Andy 房间、Galaxy Toys 商场、可驾驶玩具机甲。</span></div>
+              <div><b>当地角色</b><span>Woody、Buzz 等玩具判断索拉一行是否可信，并与其同行。</span></div>
+              <div><b>主线接入</b><span>Heartless 与 Organization 介入“玩具是否有心”的问题。</span></div>
+              <div><b>设计价值</b><span>把 IP 的核心命题“玩具有生命”转译成 KH 的“心”的规则。</span></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="world-card">
+          <div class="poster">
+            <img src="../assets/kingdom-hearts-pattern/monstropolis-trailer.jpg" alt="Monstropolis 视频缩略图">
+            <span class="tag">Pixar / Monsters, Inc.</span>
+          </div>
+          <div class="content">
+            <h3>Monstropolis</h3>
+            <div class="matrix">
+              <div><b>主题包</b><span>怪物公司、门仓、工厂管线、惊吓/欢笑能源。</span></div>
+              <div><b>当地角色</b><span>Mike、Sulley、Boo 让玩家进入“保护孩子”的本地任务。</span></div>
+              <div><b>主线接入</b><span>Vanitas / Unversed 等黑暗侧力量介入本地能源与恐惧主题。</span></div>
+              <div><b>设计价值</b><span>世界规则先改写主角外形，再让玩家理解当地社会秩序。</span></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="world-card">
+          <div class="poster">
+            <img src="../assets/kingdom-hearts-pattern/arendelle-trailer.jpg" alt="Arendelle 视频缩略图">
+            <span class="tag">Disney / Frozen</span>
+          </div>
+          <div class="content">
+            <h3>Arendelle</h3>
+            <div class="matrix">
+              <div><b>主题包</b><span>雪山、冰宫、暴风雪、Elsa 的冰雪力量。</span></div>
+              <div><b>当地角色</b><span>Anna、Elsa、Olaf 等角色承担本地情感轴。</span></div>
+              <div><b>主线接入</b><span>黑暗阵营观察 Elsa 的力量，把本地角色变成主线判断对象。</span></div>
+              <div><b>设计价值</b><span>IP 的情绪主题“恐惧与自我接纳”可直接接上光暗主题。</span></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="world-card">
+          <div class="poster">
+            <img src="../assets/kingdom-hearts-pattern/caribbean-trailer.jpg" alt="The Caribbean 视频缩略图">
+            <span class="tag">Disney / Pirates</span>
+          </div>
+          <div class="content">
+            <h3>The Caribbean</h3>
+            <div class="matrix">
+              <div><b>主题包</b><span>海盗船、海战、岛屿探索、宝藏与诅咒。</span></div>
+              <div><b>当地角色</b><span>Jack Sparrow 等角色把玩家带入电影式冒险节奏。</span></div>
+              <div><b>主线接入</b><span>Organization 追踪箱子与黑暗线索，局部冒险转成系列追踪任务。</span></div>
+              <div><b>设计价值</b><span>把电影动作场面转译成航海、船战、开放海域探索。</span></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="world-card">
+          <div class="poster">
+            <img src="../assets/kingdom-hearts-pattern/olympus-trailer.jpg" alt="Olympus 视频缩略图">
+            <span class="tag">Disney / Hercules</span>
+          </div>
+          <div class="content">
+            <h3>Olympus</h3>
+            <div class="matrix">
+              <div><b>主题包</b><span>希腊神殿、竞技场、英雄试炼、冥界威胁。</span></div>
+              <div><b>当地角色</b><span>Hercules 是英雄样板，承接索拉对“力量”的理解。</span></div>
+              <div><b>主线接入</b><span>Hades 与黑暗势力让本地神话成为主线冲突的入口。</span></div>
+              <div><b>设计价值</b><span>用熟悉神话空间解释主角成长，而不是只做关卡皮肤。</span></div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="case-study" aria-label="Toy Box 单世界详细拆解">
+        <div class="case-hero">
+          <img src="../assets/kingdom-hearts-pattern/toybox-world.png" alt="Toy Box 世界环境图">
+          <div class="case-hero-content">
+            <img class="case-logo" src="../assets/kingdom-hearts-pattern/toybox-logo.png" alt="Toy Box 标志">
+            <h3>Toy Box 详细拆解</h3>
+          </div>
+        </div>
+
+        <div class="case-breakdown">
+          <article class="case-row evidence-row">
+            <div class="case-copy">
+              <b>Layer 01 / IP 主题包</b>
+              <h4>先提取“玩具尺度”，再把日常空间改成关卡</h4>
+              <p>设计手法是先抓 Toy Story 最可玩的规则核：玩家和角色都处在玩具尺度。于是儿童房、商场、货架、玩具陈列不再只是电影场景，而会变成高低差、路径、遮挡物、遭遇点和可驾驶玩具机甲的来源。</p>
+            </div>
+            <div class="case-visual evidence-visual">
+              <div class="evidence-grid" aria-label="Toy Box 空间规则三张证据图">
+                <figure class="evidence-card primary">
+                  <img src="../assets/kingdom-hearts-pattern/toybox-scale-room.jpg" alt="索拉以玩具比例站在安迪房间里，蓝色豆袋和墙面显得巨大">
+                  <figcaption class="evidence-caption">
+                    <b>抽象规则</b>
+                    <span>把“玩具眼中的世界很巨大”落实成镜头和地图比例：普通墙面、地板、豆袋都变成玩家需要移动和探索的空间。</span>
+                  </figcaption>
+                </figure>
+                <figure class="evidence-card">
+                  <img src="../assets/kingdom-hearts-pattern/toybox-space-platform.jpg" alt="Galaxy Toys 室内多层商场、轨道、展台和店铺组成可探索路线">
+                  <figcaption class="evidence-caption">
+                    <b>空间转译</b>
+                    <span>Galaxy Toys 的楼层、轨道、展台和店铺入口被组织成可抵达路线，商场结构直接承担关卡路径和遭遇空间。</span>
+                  </figcaption>
+                </figure>
+                <figure class="evidence-card">
+                  <img src="../assets/kingdom-hearts-pattern/galaxy-toys.png" alt="Galaxy Toys 外观像一座由玩具包装和积木组成的彩色商场">
+                  <figcaption class="evidence-caption">
+                    <b>视觉证据</b>
+                    <span>外立面像玩具包装和积木拼出的主题城堡，观众能直接读到“这座商场就是 Toy Box 的冒险世界”。</span>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-row evidence-row">
+            <div class="case-copy">
+              <b>Layer 02 / 当地角色参与</b>
+              <h4>IP 角色不是背景，而是玩家进入 Toy Box 的关系接口</h4>
+              <p>Woody、Buzz、Hamm、Rex 等角色承担三件事：在 Andy 房间接住外来者，说明“Andy 和伙伴失踪”的本地危机，再和索拉一起行动、战斗和触发 Toy Story 风格的玩法演出。</p>
+            </div>
+            <div class="case-visual evidence-visual">
+              <div class="evidence-grid" aria-label="Toy Box IP 角色参与融入三张证据图">
+                <figure class="evidence-card">
+                  <img src="../assets/kingdom-hearts-pattern/toybox-trailer.jpg" alt="Woody 在 Andy 房间与玩具形态的索拉一行对话">
+                  <figcaption class="evidence-caption">
+                    <b>关系入口</b>
+                    <span>玩家先遇到 Woody、Buzz 等当地玩具。危机不是系统菜单派发，而是由本世界的角色开口说明。</span>
+                  </figcaption>
+                </figure>
+                <figure class="evidence-card">
+                  <img src="../assets/kingdom-hearts-pattern/toybox-party-combat.jpg" alt="Woody 与索拉在 Toy Box 战斗场景中共同作战">
+                  <figcaption class="evidence-caption">
+                    <b>共同作战</b>
+                    <span>Woody / Buzz 进入战斗队伍和 HUD，和索拉一起面对 Heartless。IP 角色从 cameo 变成实际同行者。</span>
+                  </figcaption>
+                </figure>
+                <figure class="evidence-card">
+                  <img src="../assets/kingdom-hearts-pattern/toybox-rocket-team.jpg" alt="索拉、Woody 和 Buzz 一起乘坐红色火箭进行 Toy Story 风格动作">
+                  <figcaption class="evidence-caption">
+                    <b>玩法演出</b>
+                    <span>三人一起乘坐火箭行动，Toy Story 的玩具动作被做成玩法和镜头演出，而不是只放在剧情对白里。</span>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sources">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Sources</div>
+          <h2>资料与图片来源</h2>
+        </div>
+      </div>
+      <ol class="source-list">
+        <li><a href="https://www.square-enix.com/kingdomhearts/about/us/" target="_blank" rel="noreferrer">Square Enix KINGDOM HEARTS About</a>：系列故事、Sora / Donald / Goofy、Heartless、世界列表、官方角色与世界图标。</li>
+        <li><a href="https://www.square-enix.com/kingdomhearts/3/us/home/" target="_blank" rel="noreferrer">KINGDOM HEARTS III Official Site</a>：KH3 故事描述、Disney / Pixar 世界、官方 trailer 缩略图。</li>
+        <li><a href="https://www.gamerguides.com/kingdom-hearts-iii/guide/the-gummiphone/treasures/toy-box" target="_blank" rel="noreferrer">Gamer Guides: Toy Box Treasures</a>：Andy’s Room、Galaxy Toys 多层空间与轨道路径截图。</li>
+        <li><a href="https://wccftech.com/kingdom-hearts-iii-new-screens/" target="_blank" rel="noreferrer">Wccftech: Kingdom Hearts III New Screenshots</a>：Toy Box 中 Sora / Woody / Buzz 共同战斗与火箭动作截图。</li>
+        <li><a href="https://www.khwiki.com/Atlantica" target="_blank" rel="noreferrer">Kingdom Hearts Wiki: Atlantica</a>：Atlantica 世界与海底形态说明。</li>
+        <li><a href="https://www.khwiki.com/Ariel" target="_blank" rel="noreferrer">Kingdom Hearts Wiki: Ariel</a>：Atlantica 当地 IP 搭档素材。</li>
+        <li><a href="https://www.khwiki.com/Sea_Neon" target="_blank" rel="noreferrer">Kingdom Hearts Wiki: Sea Neon</a>：Atlantica 海底语法的 Heartless 素材。</li>
+        <li><a href="https://www.khwiki.com/Halloween_Town" target="_blank" rel="noreferrer">Kingdom Hearts Wiki: Halloween Town</a>：Halloween Town 世界与本地视觉风格。</li>
+        <li><a href="https://www.khwiki.com/Jack_Skellington" target="_blank" rel="noreferrer">Kingdom Hearts Wiki: Jack Skellington</a>：Halloween Town 当地 IP 搭档素材。</li>
+        <li><a href="https://www.khwiki.com/Wight_Knight" target="_blank" rel="noreferrer">Kingdom Hearts Wiki: Wight Knight</a>：Halloween Town 风格的 Heartless 素材。</li>
+        <li><a href="https://www.khwiki.com/Lion_Form" target="_blank" rel="noreferrer">Kingdom Hearts Wiki: Lion Form</a>：Pride Lands 中 Sora 狮子形态与能力变化。</li>
+        <li><a href="https://www.khwiki.com/Simba" target="_blank" rel="noreferrer">Kingdom Hearts Wiki: Simba</a>：Pride Lands 当地 IP 搭档素材。</li>
+        <li><a href="https://www.khwiki.com/Living_Bone" target="_blank" rel="noreferrer">Kingdom Hearts Wiki: Living Bone</a>：Pride Lands 骨架动物语法的 Heartless 素材。</li>
+        <li><a href="https://www.khwiki.com/Port_Royal" target="_blank" rel="noreferrer">Kingdom Hearts Wiki: Port Royal</a>：KHII 海盗世界素材。</li>
+        <li><a href="https://www.khwiki.com/Pirate" target="_blank" rel="noreferrer">Kingdom Hearts Wiki: Pirate</a>：海盗语法的 Heartless 素材。</li>
+        <li><a href="https://www.khwiki.com/Toy_Trooper" target="_blank" rel="noreferrer">Kingdom Hearts Wiki: Toy Trooper</a>：Toy Box 专属 action figure-like Heartless 设计。</li>
+        <li><a href="https://www.khwiki.com/Winterhorn" target="_blank" rel="noreferrer">Kingdom Hearts Wiki: Winterhorn</a>：Arendelle 中带冰晶鹿角的 Emblem Heartless。</li>
+        <li><a href="https://www.khwiki.com/Anchor_Raider" target="_blank" rel="noreferrer">Kingdom Hearts Wiki: Anchor Raider</a>：The Caribbean 中海盗语法的 Emblem Heartless。</li>
+        <li><a href="https://www.khwiki.com/Toy_Box" target="_blank" rel="noreferrer">Kingdom Hearts Wiki: Toy Box</a>：Toy Box 世界、Toy Story 来源、Woody / Buzz 与玩具形态。</li>
+        <li><a href="https://www.khwiki.com/Monstropolis" target="_blank" rel="noreferrer">Kingdom Hearts Wiki: Monstropolis</a>：Monstropolis 世界与 Sora 一行怪物形态。</li>
+        <li><a href="https://www.khwiki.com/Lump_of_Horror" target="_blank" rel="noreferrer">Kingdom Hearts Wiki: Lump of Horror</a>：Monstropolis 黑暗敌人素材。</li>
+        <li><a href="https://www.khwiki.com/Forms:Sora" target="_blank" rel="noreferrer">Kingdom Hearts Wiki: Forms:Sora</a>：Sora 在不同世界中的形态图。</li>
+      </ol>
+    </section>
+  </main>
+</body>
+</html>
