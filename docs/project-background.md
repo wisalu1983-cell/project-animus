@@ -97,7 +97,8 @@
 | [docs/animus-setting-research.md](animus-setting-research.md) | Animus 完整设定：核心原理、代际演进（Alruh→Animus 4.3→HR-8→Hub）、现实实现必备设定要素 | 148KB，84 来源 |
 | [docs/hyped-broken-promises-ai-unlock.md](hyped-broken-promises-ai-unlock.md) | 8 条 AI 能力轴 × "被吹爆但没做到"的承诺 × 两层维度审视（欲望退烧 + AI 必要性 4 条件 gate） | 46KB |
 | [docs/fate-series-research-report.md](fate-series-research-report.md) | **v2 完整版**：Fate 系列核心卖点（4 核心 + 4 次核心 + 4 边缘）× 11 部主要游戏作品 × 8 维度对照矩阵 × 6 条未满足空间清单。基于 355 agents / 17.6M tokens / 34.8min 的两轮 workflow 调研（Round-1 baseline 19 confirmed + Round-2 gap-fill 35 + Critic follow-up 18 = **72 confirmed** + 11 refuted）。含粉丝原声引用（英文为主，中/日 caveat）+ Fate/EXTRA CCC 的 BB 作为 "AI 主导 HGW" 官方叙事先例 + 6 条 unmet gap 的 G1/G2/G3 与 4 条件 AND-gate 对照 | 约 24KB |
-| [docs/vision-pitch-wow-moments-handoff.md](vision-pitch-wow-moments-handoff.md) | **方向 B（圣杯战争 Agent 方向）Wow Moments 交接文档 · v1**。三个 Wow Moment 的完整分镜骨架 + tagline 定型 + 红线原则 + 3 个必现证据时刻对照兑现 + 4 条件 AND-gate 通过度对照。Wow 1: 召唤+空间灰模+记忆亲历+真名揭示（Iskandar 示范）; Wow 2: 一天时间线+上线并肩作战（Iskandar 继续）; Wow 3: 原创英灵召唤（一战工兵示范）+ tagline 收尾。交接给下一个 agent 做**具体内容设计**（分镜/台词/视觉参考/AI 生成规格） | 约 22KB |
+| [docs/vision-pitch-wow-moments-handoff.md](vision-pitch-wow-moments-handoff.md) | **方向 B（圣杯战争 Agent 方向）Wow Moments 交接文档 · v1**。三个 Wow Moment 的完整分镜骨架 + tagline 定型 + 红线原则 + 3 个必现证据时刻对照兑现 + 4 条件 AND-gate 通过度对照。Wow 1: 召唤+空间灰模+记忆亲历+真名揭示（Iskandar 示范）; Wow 2: 一天时间线+上线并肩作战（Iskandar 继续）; Wow 3: 原创英灵召唤（一战工兵示范）+ tagline 收尾。交接给下一个 agent 做**具体内容设计**（分镜/台词/视觉参考/AI 生成规格）。**注**：三个 Wow Moment 的切分与结构已被 2026-07-02 新口径图文设计取代（见下行），本文档降级为参考素材 | 约 22KB |
+| [docs/grail-war-demo-wow-moments-v2-storyboard.md](grail-war-demo-wow-moments-v2-storyboard.md) | **圣杯战争愿景 demo · Wow Moments 新口径图文呈现设计 · v1**（2026-07-02）。用户新口径三个 wow moment（圣遗物生成英灵 / 英灵战场自主意志含英灵间博弈 / Master 配合互动）×「第一夜」连续叙事 × 双第一人称（主次两对 Master-英灵搭档，表达多真人玩家同时参与）。13 帧关键画面 brief + 观众向配文 + 原作锚点。记录旧 handoff 两条红线（不加多 Master 对战 / 不做多英灵对比）的废止 | 约 12KB |
 
 ### 6.1 跨项目参考（未搬入本项目）
 
