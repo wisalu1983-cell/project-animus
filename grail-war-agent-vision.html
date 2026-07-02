@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>召唤一位活着的英灵 · 圣杯战争 × AI Agent 愿景创意</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07080f;
+    --bg-2: #0c0e18;
+    --panel: #10131f;
+    --ink: #f0e9d8;
+    --muted: #9aa0b4;
+    --line: rgba(240,233,216,.13);
+    --gold: #c9a35c;
+    --gold-bright: #e8c987;
+    --crimson: #c22740;
+    --crimson-bright: #e84a63;
+    --shadow: rgba(0,0,0,.55);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; background: var(--bg); }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    font-weight: 300;
+    line-height: 1.9;
+    background:
+      radial-gradient(ellipse at 15% 0%, rgba(194,39,64,.08), transparent 40rem),
+      radial-gradient(ellipse at 90% 12%, rgba(201,163,92,.07), transparent 34rem),
+      linear-gradient(180deg, #080a12 0%, #0a0c16 50%, #07080f 100%);
+    overflow-x: hidden;
+  }
+
+  /* film grain */
+  body::after {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 40;
+    opacity: .05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  }
+
+  .page { position: relative; z-index: 1; width: min(1280px, 100%); margin: 0 auto; }
+
+  .en {
+    font-family: "Cinzel", serif;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+  }
+
+  /* ========== NAV ========== */
+  .nav {
+    position: sticky; top: 0; z-index: 30;
+    display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    padding: 13px clamp(18px, 4vw, 56px);
+    background: rgba(7,8,15,.86);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav strong {
+    font-family: "Noto Serif SC", serif; font-weight: 700;
+    font-size: clamp(15px, 1.6vw, 19px); letter-spacing: .06em;
+  }
+  .nav strong em { font-style: normal; color: var(--gold); }
+  .nav-links { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
+  .nav a {
+    display: inline-flex; align-items: center; min-height: 40px; padding: 0 13px;
+    color: var(--muted); text-decoration: none; font-size: 13.5px; letter-spacing: .08em;
+    border-radius: 999px; border: 1px solid transparent;
+    transition: color .2s, border-color .2s, background .2s;
+  }
+  .nav a:hover, .nav a:focus-visible {
+    color: var(--ink); border-color: rgba(201,163,92,.55); background: rgba(201,163,92,.07); outline: none;
+  }
+
+  /* ========== HERO ========== */
+  .hero {
+    position: relative; min-height: 96vh;
+    display: grid; align-items: end;
+    padding: clamp(90px, 12vw, 150px) clamp(20px, 5vw, 64px) clamp(56px, 7vw, 92px);
+    overflow: hidden; isolation: isolate;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: -3;
+    background-image:
+      linear-gradient(100deg, rgba(7,8,15,.97) 8%, rgba(7,8,15,.72) 46%, rgba(7,8,15,.34) 100%),
+      url("../assets/grail-war-agent-vision/hero-grail-war.jpg");
+    background-size: cover; background-position: center 30%;
+  }
+  .hero::after {
+    content: ""; position: absolute; inset: auto 0 0; height: 36vh; z-index: -1;
+    background: linear-gradient(to top, var(--bg) 4%, transparent);
+  }
+  /* summoning circle motif */
+  .circle-motif {
+    position: absolute; z-index: -2;
+    right: clamp(-160px, -6vw, -40px); top: clamp(-120px, -4vw, -30px);
+    width: clamp(420px, 44vw, 720px); aspect-ratio: 1;
+    opacity: .5; pointer-events: none;
+  }
+  .circle-motif svg { width: 100%; height: 100%; animation: spin 160s linear infinite; }
+  .circle-motif .ring-2 { animation: spin-r 110s linear infinite; transform-origin: center; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes spin-r { to { transform: rotate(-360deg); } }
+
+  .hero-copy { width: min(920px, 100%); }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    color: var(--gold); font-size: 12.5px; margin-bottom: 22px;
+  }
+  .eyebrow::before { content: ""; width: 42px; height: 1px; background: var(--gold); }
+
+  h1 {
+    margin: 0 0 26px;
+    font-family: "Noto Serif SC", serif; font-weight: 900;
+    font-size: clamp(30px, 5vw, 58px);
+    line-height: 1.32; letter-spacing: .015em;
+  }
+  h1 .accent { color: var(--gold-bright); }
+
+  .hero-thesis {
+    font-size: clamp(15.5px, 1.6vw, 18px); color: var(--ink);
+    max-width: 46em; margin: 0 0 14px;
+  }
+  .hero-thesis strong { font-weight: 500; color: var(--gold-bright); }
+  .hero-sub {
+    font-size: clamp(13.5px, 1.4vw, 15.5px); color: var(--muted); max-width: 44em; margin: 0 0 36px;
+  }
+  .hero-sub em { font-style: normal; color: var(--crimson-bright); }
+
+  .pillars {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+    max-width: 880px; padding: 0; margin: 0; list-style: none;
+  }
+  .pillars li {
+    padding: 16px 16px 14px;
+    border: 1px solid var(--line); border-top: 2px solid var(--gold);
+    background: rgba(12,14,24,.72); backdrop-filter: blur(6px);
+  }
+  .pillars .no { display: block; color: var(--gold); font-size: 11.5px; margin-bottom: 6px; }
+  .pillars b { display: block; font-family: "Noto Serif SC", serif; font-weight: 700; font-size: 16.5px; margin-bottom: 4px; }
+  .pillars span { font-size: 12.8px; color: var(--muted); line-height: 1.7; display: block; }
+
+  /* staggered hero load */
+  .hero-copy > * { opacity: 0; transform: translateY(26px); animation: rise .9s cubic-bezier(.2,.7,.2,1) forwards; }
+  .hero-copy > *:nth-child(1) { animation-delay: .1s; }
+  .hero-copy > *:nth-child(2) { animation-delay: .25s; }
+  .hero-copy > *:nth-child(3) { animation-delay: .45s; }
+  .hero-copy > *:nth-child(4) { animation-delay: .6s; }
+  .hero-copy > *:nth-child(5) { animation-delay: .75s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+
+  /* ========== SOURCE VIDEO ========== */
+  .source-video {
+    padding: clamp(54px, 7vw, 92px) clamp(20px, 5vw, 64px) clamp(36px, 5vw, 70px);
+    border-top: 1px solid rgba(240,233,216,.06);
+  }
+  .video-head {
+    display: flex; align-items: end; justify-content: space-between; gap: 20px;
+    margin-bottom: clamp(18px, 3vw, 30px);
+  }
+  .video-head h2 {
+    margin: 0;
+    font-family: "Noto Serif SC", serif; font-weight: 900;
+    font-size: clamp(22px, 3vw, 34px); line-height: 1.45;
+  }
+  .video-head .video-label { color: var(--gold); font-size: 12px; margin-bottom: 6px; }
+  .video-link {
+    color: var(--muted); text-decoration: none; font-size: 13px;
+    border-bottom: 1px solid rgba(201,163,92,.45);
+  }
+  .video-link:hover, .video-link:focus-visible { color: var(--gold-bright); outline: none; }
+  .video-frame {
+    position: relative; overflow: hidden; aspect-ratio: 16 / 9;
+    border: 1px solid rgba(201,163,92,.45);
+    border-top: 2px solid var(--gold);
+    background: #05060b;
+    box-shadow: 0 28px 72px -30px var(--shadow);
+  }
+  .video-frame iframe {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  /* ========== CHAPTERS ========== */
+  .chapter {
+    position: relative;
+    padding: clamp(72px, 9vw, 128px) clamp(20px, 5vw, 64px) clamp(30px, 4vw, 56px);
+  }
+  .chapter + .chapter { border-top: 1px solid rgba(240,233,216,.06); }
+
+  .ch-head { position: relative; max-width: 980px; margin-bottom: clamp(34px, 4vw, 54px); }
+  .ch-num {
+    position: absolute; left: -12px; top: 50%; transform: translateY(-58%);
+    font-family: "Noto Serif SC", serif; font-weight: 900;
+    font-size: clamp(110px, 15vw, 200px); line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(201,163,92,.22);
+    user-select: none; pointer-events: none;
+  }
+  .ch-label {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--crimson-bright); font-size: 12px; margin-bottom: 12px;
+  }
+  .ch-label::before { content: ""; width: 26px; height: 1px; background: var(--crimson-bright); }
+  .ch-head h2 {
+    margin: 0; position: relative;
+    font-family: "Noto Serif SC", serif; font-weight: 900;
+    font-size: clamp(24px, 3.4vw, 40px); line-height: 1.4; letter-spacing: .02em;
+  }
+  .ch-head .ch-intro { position: relative; margin: 14px 0 0; color: var(--muted); font-size: 15px; max-width: 44em; }
+
+  .duo {
+    display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: clamp(22px, 3vw, 44px); align-items: start;
+  }
+  .duo.flip { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .duo.flip .canon { order: 2; }
+  .duo.flip .exp-col { order: 1; }
+
+  /* 原作段落卡 */
+  .canon figure { margin: 0; }
+  .canon .img-frame,
+  .seq .img-frame {
+    position: relative; overflow: hidden;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--line);
+    box-shadow: 0 24px 60px -22px var(--shadow);
+  }
+  .canon .img-frame::before,
+  .seq .img-frame::before {
+    content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(to top, rgba(7,8,15,.55), transparent 42%);
+  }
+  .canon img,
+  .seq img {
+    display: block; width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(.92) contrast(1.04);
+    transition: transform .8s cubic-bezier(.2,.7,.2,1);
+  }
+  .canon .img-frame:hover img,
+  .seq .img-frame:hover img { transform: scale(1.035); }
+  .img-frame .src-tag {
+    position: absolute; left: 0; bottom: 0; z-index: 2;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 14px 7px 16px;
+    background: rgba(7,8,15,.78); backdrop-filter: blur(6px);
+    border-top: 1px solid rgba(201,163,92,.4); border-right: 1px solid rgba(201,163,92,.4);
+    color: var(--gold-bright); font-size: 12px; letter-spacing: .12em;
+  }
+  .canon figcaption { padding: 16px 4px 0; }
+  .canon .scene { font-size: 14.5px; color: var(--ink); max-width: 40em; }
+  .canon .scene b { font-weight: 500; color: var(--gold-bright); }
+
+  .canon blockquote {
+    margin: 18px 0 0; padding: 4px 0 4px 18px;
+    border-left: 2px solid var(--gold);
+    font-family: "Noto Serif SC", serif; font-weight: 500;
+    font-size: 16.5px; line-height: 1.85; color: var(--ink);
+  }
+  .canon blockquote .who { display: block; margin-top: 6px; font-family: "Noto Sans SC", sans-serif; font-weight: 300; font-size: 12.5px; color: var(--muted); letter-spacing: .1em; }
+
+  .canon + .canon { margin-top: clamp(26px, 3vw, 40px); }
+
+  /* 预期体验卡 */
+  .exp {
+    position: sticky; top: 92px;
+    padding: 26px 26px 24px;
+    background: linear-gradient(160deg, rgba(194,39,64,.09), rgba(16,19,31,.9) 42%);
+    border: 1px solid rgba(232,74,99,.28); border-left: 3px solid var(--crimson);
+    box-shadow: 0 24px 60px -28px var(--shadow);
+  }
+  .exp .tag {
+    display: inline-flex; align-items: baseline; gap: 10px; margin-bottom: 14px;
+    color: var(--crimson-bright); font-size: 12px;
+  }
+  .exp .tag b { font-family: "Noto Serif SC", serif; font-weight: 700; font-size: 15px; color: var(--ink); letter-spacing: .2em; }
+  .exp p { margin: 0 0 12px; font-size: 14.8px; color: var(--ink); }
+  .exp p:last-child { margin-bottom: 0; }
+  .exp p strong { font-weight: 500; color: var(--crimson-bright); }
+  .exp .divider { height: 1px; background: rgba(232,74,99,.2); margin: 16px 0; }
+  .exp .note { font-size: 12.8px; color: var(--muted); }
+
+  /* 多图分镜序列：一章一个原作例子，用连续帧讲清楚 */
+  .seq {
+    display: grid; gap: clamp(14px, 2vw, 22px);
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    margin-bottom: clamp(26px, 3.5vw, 44px);
+  }
+  .seq .frame { position: relative; }
+  .seq .img-frame { border-top: 2px solid rgba(201,163,92,.55); }
+  .seq .step {
+    display: flex; gap: 10px; align-items: baseline;
+    padding: 12px 2px 0;
+  }
+  .seq .step .no {
+    flex: none;
+    font-family: "Noto Serif SC", serif; font-weight: 900; font-size: 20px;
+    color: var(--gold-bright); line-height: 1.5;
+  }
+  .seq .step p { margin: 0; font-size: 13.8px; color: var(--ink); line-height: 1.8; }
+  .seq .step p b { font-weight: 500; color: var(--gold-bright); }
+
+  .verdict {
+    text-align: center; margin: 0 0 clamp(26px, 3vw, 40px);
+    font-family: "Noto Serif SC", serif; font-weight: 700; font-size: clamp(16px, 2vw, 20px);
+    color: var(--gold-bright); letter-spacing: .06em;
+  }
+
+  /* scroll reveal */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* 待补图占位 */
+  .img-ph {
+    display: grid; place-items: center; aspect-ratio: 16/9;
+    border: 1px dashed rgba(201,163,92,.4);
+    background:
+      radial-gradient(circle at 50% 42%, rgba(201,163,92,.07), transparent 60%),
+      var(--panel);
+    color: var(--muted); text-align: center; padding: 20px;
+  }
+  .img-ph .ph-tag { display: block; color: var(--gold); font-size: 11px; letter-spacing: .3em; margin-bottom: 10px; }
+  .img-ph .ph-desc { font-size: 13px; max-width: 26em; line-height: 1.8; }
+
+  /* ========== ENDING ========== */
+  .ending {
+    position: relative; min-height: 88vh;
+    display: grid; place-items: center; text-align: center;
+    padding: clamp(90px, 11vw, 140px) clamp(20px, 5vw, 64px);
+    overflow: hidden; isolation: isolate; margin-top: clamp(50px, 6vw, 80px);
+  }
+  .ending-bg {
+    position: absolute; inset: 0; z-index: -2;
+    background-image:
+      linear-gradient(rgba(7,8,15,.82), rgba(7,8,15,.66) 45%, var(--bg) 96%),
+      url("../assets/grail-war-agent-vision/war-overview.jpg");
+    background-size: cover; background-position: center;
+  }
+  .ending-copy { max-width: 860px; }
+  .ending .en-line { color: var(--gold); font-size: 12px; margin-bottom: 22px; }
+  .ending h2 {
+    margin: 0 0 26px;
+    font-family: "Noto Serif SC", serif; font-weight: 900;
+    font-size: clamp(24px, 3.6vw, 42px); line-height: 1.5;
+  }
+  .ending p { color: var(--ink); font-size: clamp(14.5px, 1.5vw, 16.5px); margin: 0 auto 12px; max-width: 40em; }
+  .ending .tagline {
+    margin-top: 40px; padding-top: 30px; position: relative;
+    font-family: "Noto Serif SC", serif; font-weight: 700;
+    font-size: clamp(17px, 2.2vw, 24px); line-height: 2; color: var(--gold-bright);
+  }
+  .ending .tagline::before {
+    content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 72px; height: 1px; background: var(--gold);
+  }
+
+  footer {
+    padding: 26px clamp(20px, 5vw, 64px) 40px;
+    color: var(--muted); font-size: 12.5px; letter-spacing: .08em;
+    display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+    border-top: 1px solid rgba(240,233,216,.06);
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 900px) {
+    .duo, .duo.flip { grid-template-columns: 1fr; }
+    .duo.flip .canon { order: 1; }
+    .duo.flip .exp-col { order: 2; }
+    .exp { position: static; }
+    .pillars { grid-template-columns: 1fr 1fr; }
+    .contrast { grid-template-columns: 1fr; }
+    .video-head { display: block; }
+    .video-link { display: inline-flex; margin-top: 10px; }
+    .ch-num { position: static; display: block; transform: none; font-size: 84px; margin-bottom: -30px; }
+  }
+  @media (max-width: 520px) {
+    .pillars { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-copy > *, .reveal { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; }
+    .circle-motif svg, .circle-motif .ring-2 { animation: none !important; }
+  }
+</style>
+<style>
+  .site-nav{position:fixed;top:0;left:0;right:0;z-index:9999;display:flex;align-items:center;gap:16px;padding:10px 20px;background:rgba(8,10,18,.72);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid rgba(255,255,255,.08);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif;font-size:13px;letter-spacing:.02em;color:rgba(255,255,255,.9)}
+  .site-nav a{color:rgba(255,255,255,.7);text-decoration:none;padding:6px 12px;border-radius:6px;transition:color .18s,background .18s;white-space:nowrap}
+  .site-nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+  .site-nav a[aria-current="page"]{color:#fff;background:rgba(255,255,255,.14);font-weight:500}
+  .site-nav__home{font-size:12px;opacity:.85}
+  .site-nav__links{display:flex;gap:4px;margin-left:auto}
+  body{padding-top:46px}
+  @media (max-width:720px){.site-nav{padding:8px 12px;gap:10px;font-size:12px}.site-nav a{padding:5px 8px}body{padding-top:42px}}
+</style>
+</head>
+<body>
+<nav class="site-nav" aria-label="站内导航">
+  <a class="site-nav__home" href="index.html">← 主页</a>
+  <div class="site-nav__links">
+    <a href="living-planet-vision.html">活着的星球</a>
+    <a href="kingdom-hearts-world-pattern.html">Kingdom Hearts 范式</a>
+    <a href="grail-war-agent-vision.html" aria-current="page">圣杯战争 × Agent</a>
+  </div>
+</nav>
+<div class="page">
+
+  <nav class="nav">
+    <strong>圣杯战争 <em>×</em> AI AGENT</strong>
+    <div class="nav-links">
+      <a href="#ch1">召唤</a><a href="#ch2">人格</a><a href="#ch3">意志</a><a href="#ch4">合作</a><a href="#ch5">配合</a><a href="#ending">真实的战争</a>
+    </div>
+  </nav>
+
+  <!-- ============ HERO / 核心思路 ============ -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="circle-motif" aria-hidden="true">
+      <svg viewBox="0 0 400 400" fill="none">
+        <circle cx="200" cy="200" r="192" stroke="#c9a35c" stroke-opacity=".5" stroke-width="1"/>
+        <circle cx="200" cy="200" r="168" stroke="#c9a35c" stroke-opacity=".35" stroke-width="1" stroke-dasharray="3 9"/>
+        <g class="ring-2">
+          <circle cx="200" cy="200" r="140" stroke="#c22740" stroke-opacity=".5" stroke-width="1" stroke-dasharray="46 14 8 14"/>
+          <circle cx="200" cy="200" r="122" stroke="#c9a35c" stroke-opacity=".3" stroke-width="1"/>
+        </g>
+        <polygon points="200,72 310,264 90,264" stroke="#c9a35c" stroke-opacity=".28" stroke-width="1" fill="none"/>
+        <polygon points="200,328 90,136 310,136" stroke="#c9a35c" stroke-opacity=".28" stroke-width="1" fill="none"/>
+      </svg>
+    </div>
+
+    <div class="hero-copy">
+      <span class="eyebrow en">Project Animus · Vision Demo 创意方向 I</span>
+      <h1>召唤一位<span class="accent">活着的英灵</span>，<br>与你并肩打一场真实的圣杯战争</h1>
+      <p class="hero-thesis">
+        用 AI Agent 还原 Fate 系列的核心幻想：英灵不再是执行指令的游戏角色，而是
+        <strong>由 AI 从你的一件旧物中现场生成、有人格、有目的、会自主行动的搭档</strong>。
+        你以 Master 的身份第一人称置身战争——找到与他合作的方式，与他配合，赢下圣杯。
+      </p>
+      <p class="hero-sub">
+        二十年来，历代 Fate 游戏都把英灵做成了卡池里的单位和指令的执行器。
+        <em>"英灵是活人"这件事，agent 技术第一次让它成为可能。</em>
+      </p>
+      <ul class="pillars">
+        <li><span class="no en">01 · Summon</span><b>召唤</b><span>AI 根据一件特定的物品，设计并生成专属英灵</span></li>
+        <li><span class="no en">02 · Persona</span><b>人格</b><span>有背景设定、有鲜明言行风格的"人"</span></li>
+        <li><span class="no en">03 · Will</span><b>意志与合作</b><span>他带着自己的目的参战，你需要找到与他合作的方式</span></li>
+        <li><span class="no en">04 · Union</span><b>并肩</b><span>行动中互相配合，交流质量决定战争走向</span></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ============ SOURCE VIDEO ============ -->
+  <section class="source-video reveal" id="source-video">
+    <div class="video-head">
+      <div>
+        <p class="video-label en">Reference Video</p>
+        <h2>开场参考视频</h2>
+      </div>
+      <a class="video-link" href="https://www.bilibili.com/video/BV1KA39z3Ev5/" target="_blank" rel="noopener">在 Bilibili 打开</a>
+    </div>
+    <div class="video-frame">
+      <iframe
+        class="bili-video"
+        title="Bilibili 视频：BV1KA39z3Ev5"
+        src="https://player.bilibili.com/player.html?isOutside=true&bvid=BV1KA39z3Ev5&p=1"
+        allowfullscreen
+        scrolling="no">
+      </iframe>
+    </div>
+  </section>
+
+  <!-- ============ CH1 召唤 ============ -->
+  <section class="chapter" id="ch1">
+    <div class="ch-head reveal">
+      <span class="ch-num" aria-hidden="true">壹</span>
+      <span class="ch-label en">Summon · 亮点一</span>
+      <h2>召唤——一件旧物，一位专属英灵</h2>
+      <p class="ch-intro">原作的例子：三流学徒 Waver 的召唤。决定"谁会回应你"的不是术者的资历，而是圣遗物与英灵之间的深层联系。</p>
+    </div>
+
+    <div class="seq reveal">
+      <div class="frame">
+        <div class="img-frame">
+          <img src="../assets/grail-war-agent-vision/summon-circle.jpg" alt="Fate/Zero：Waver 的召唤法阵爆发光芒">
+          <span class="src-tag">原作 · Fate/Zero</span>
+        </div>
+        <div class="step"><span class="no">①</span><p>他手里只有<b>一小块偷来的斗篷碎片</b>——一件不起眼的旧物，和一个照着书画的法阵。</p></div>
+      </div>
+      <div class="frame">
+        <div class="img-frame">
+          <img src="../assets/grail-war-agent-vision/summon-iskandar.jpg" alt="Fate/Zero：Iskandar 显形，居高临下看着 Waver">
+          <span class="src-tag">原作 · Fate/Zero</span>
+        </div>
+        <div class="step"><span class="no">②</span><p>应召而来的，是<b>征服王 Iskandar 本人</b>——斗篷的主人。圣遗物的来历，决定了英灵是谁。</p></div>
+      </div>
+      <div class="frame">
+        <div class="img-frame">
+          <img src="../assets/grail-war-agent-vision/waver-stunned.jpg" alt="Fate/Zero：Waver 呆住仰望眼前的王">
+          <span class="src-tag">原作 · Fate/Zero</span>
+        </div>
+        <div class="step"><span class="no">③</span><p>召唤的终点不是"获得一个单位"——是<b>一个人睁开眼，居高临下地打量你</b>。</p></div>
+      </div>
+    </div>
+
+    <div class="duo flip">
+      <div class="canon reveal" style="align-self:center">
+        <blockquote>一件旧物 → 一位活生生的英灵。<span class="who">这份因果，是召唤仪式全部的重量</span></blockquote>
+      </div>
+      <div class="exp-col">
+        <aside class="exp reveal">
+          <span class="tag en">Expected Experience <b>预期体验</b></span>
+          <p>玩家拿出一件<strong>真正属于自己的物品</strong>——拍照，加一句它的来历。</p>
+          <p>AI 以它为圣遗物，<strong>现场设计并生成</strong>这位英灵：外形、人格、背景、宝具、说话的方式，以及只属于你们这对组合的开场白。</p>
+          <div class="divider"></div>
+          <p class="note">不是抽卡，不是从列表里选。每一位玩家召唤出的英灵，都是世界上独一份的。</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CH2 人格 ============ -->
+  <section class="chapter" id="ch2">
+    <div class="ch-head reveal">
+      <span class="ch-num" aria-hidden="true">貳</span>
+      <span class="ch-label en">Persona · 亮点二</span>
+      <h2>人格——一个两千年前的王，活在现代</h2>
+      <p class="ch-intro">原作的例子：征服王与现代世界。英灵的性格不是设定文案，是他自己的兴趣、执念和做出来的举动。</p>
+    </div>
+
+    <div class="seq reveal">
+      <div class="frame">
+        <div class="img-frame">
+          <img src="../assets/grail-war-agent-vision/iskandar-map.jpg" alt="Fate/Zero：Iskandar 摊开世界地图">
+          <span class="src-tag">原作 · Fate/Zero</span>
+        </div>
+        <div class="step"><span class="no">①</span><p>召唤当夜，征服王要的第一样东西不是敌情，而是一张<b>世界地图</b>——"这个时代的世界，原来这么大。"</p></div>
+      </div>
+      <div class="frame">
+        <div class="img-frame">
+          <img src="../assets/grail-war-agent-vision/rider-modern.jpg" alt="Fate/Zero：Iskandar 买来的'Admirable 大战略'T 恤">
+          <span class="src-tag">原作 · Fate/Zero</span>
+        </div>
+        <div class="step"><span class="no">②</span><p>白天，他自作主张买回一件<b>印着世界地图的 T 恤</b>穿在身上，理直气壮。</p></div>
+      </div>
+      <div class="frame">
+        <div class="img-frame">
+          <img src="../assets/grail-war-agent-vision/iskandar-game.jpg" alt="Fate/Zero：Iskandar 痴迷现代战略游戏">
+          <span class="src-tag">原作 · Fate/Zero</span>
+        </div>
+        <div class="step"><span class="no">③</span><p>夜里，他霸占着 Waver 的电视，<b>痴迷现代战略游戏</b>——征服世界，从了解这个时代开始。</p></div>
+      </div>
+    </div>
+
+    <div class="duo flip">
+      <div class="canon reveal" style="align-self:center">
+        <blockquote>两千年前的眼睛打量现代的一切——每一个反应都长在"征服王"这个人格上。<span class="who">性格不靠台词解释，靠举动自证</span></blockquote>
+      </div>
+      <div class="exp-col">
+        <aside class="exp reveal">
+          <span class="tag en">Expected Experience <b>预期体验</b></span>
+          <p>每一位 agent 英灵都有<strong>完整的人格、背景与时代认知</strong>，言行风格鲜明到"只听一句话就知道是他"。</p>
+          <p>他会对你真实生活里的任何东西作出<strong>即时、且始终符合人格的反应</strong>——你的办公室、你的地铁线路图、你半夜发去的一句抱怨。</p>
+          <div class="divider"></div>
+          <p class="note">输入无法预演，反应永远在人设里——这正是"他是活的"最直接的证据。</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CH3 意志 ============ -->
+  <section class="chapter" id="ch3">
+    <div class="ch-head reveal">
+      <span class="ch-num" aria-hidden="true">參</span>
+      <span class="ch-label en">Will · 亮点三</span>
+      <h2>意志——他带着自己的目的参战</h2>
+      <p class="ch-intro">原作的例子：未远川的首夜遭遇战。英灵有自己的愿望、准则与判断——他们参战，是为了自己的理由。</p>
+    </div>
+
+    <div class="seq reveal">
+      <div class="frame">
+        <div class="img-frame">
+          <img src="../assets/grail-war-agent-vision/lancer-standoff.jpg" alt="Fate/Zero：Saber 与 Lancer 交手前对峙">
+          <span class="src-tag">原作 · Fate/Zero</span>
+        </div>
+        <div class="step"><span class="no">①</span><p>首夜，两位从者狭路相逢。<b>互不知对方真名</b>——报上职阶，亮出兵器，仪式般地开战。</p></div>
+      </div>
+      <div class="frame">
+        <div class="img-frame">
+          <img src="../assets/grail-war-agent-vision/saber-vs-lancer.jpg" alt="Fate/Zero：未远川仓库街，Saber 对 Lancer 交锋">
+          <span class="src-tag">原作 · Fate/Zero</span>
+        </div>
+        <div class="step"><span class="no">②</span><p>交手即是试探：藏住宝具、掂量对手、<b>点到即止</b>。每一个战斗判断都出自英灵自己，没有一句 Master 的指令。</p></div>
+      </div>
+      <div class="frame">
+        <div class="img-frame">
+          <img src="../assets/grail-war-agent-vision/iskandar-arrives.jpg" alt="Fate/Zero：Iskandar 驾神威车轮乱入战场">
+          <span class="src-tag">原作 · Fate/Zero</span>
+        </div>
+        <div class="step"><span class="no">③</span><p>雷鸣中，征服王驾着战车<b>不请自来</b>，当众自报真名，邀两位对手共谋圣杯——没有人命令他来，这是他自己的打法。</p></div>
+      </div>
+    </div>
+
+    <div class="duo">
+      <div class="canon reveal" style="align-self:center">
+        <blockquote>战场上的每一个选择——试探、隐藏、收手、乱入——都是英灵自己的意志。<span class="who">Master 往往是事后才知道昨夜发生了什么</span></blockquote>
+      </div>
+      <div class="exp-col">
+        <aside class="exp reveal">
+          <span class="tag en">Expected Experience <b>预期体验</b></span>
+          <p>英灵是 <strong>24/7 行动的 agent</strong>：你不在线时，他在侦察、布防、与敌方英灵交锋——<strong>敌我英灵之间的博弈，本身就是 agent 对 agent</strong>。</p>
+          <p>你从他主动发来的战报里，得知战争的进展："遇上个有趣的枪兵。真名没露，我的也没有。"</p>
+          <div class="divider"></div>
+          <p class="note">战争不因你下线而暂停——这是"真实的圣杯战争"与一切既有游戏的分界线。</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CH4 合作 ============ -->
+  <section class="chapter" id="ch4">
+    <div class="ch-head reveal">
+      <span class="ch-num" aria-hidden="true">肆</span>
+      <span class="ch-label en">Alliance · 亮点四</span>
+      <h2>合作——与他相处的方式，决定战争的走向</h2>
+      <p class="ch-intro">原作的例子（反面教材）：切嗣与 Saber。同一纸契约，因为拒绝交流，走到了最坏的结局。</p>
+    </div>
+
+    <div class="seq reveal">
+      <div class="frame">
+        <div class="img-frame">
+          <img src="../assets/grail-war-agent-vision/kiritsugu-cold.jpg" alt="Fate/Zero：切嗣与 Saber 同框却互不对话">
+          <span class="src-tag">原作 · Fate/Zero</span>
+        </div>
+        <div class="step"><span class="no">①</span><p>切嗣把 Saber 当武器使用，<b>自始至终拒绝与她对话</b>——战术不解释，理念不交流。</p></div>
+      </div>
+      <div class="frame">
+        <div class="img-frame">
+          <img src="../assets/grail-war-agent-vision/kiritsugu-seal.jpg" alt="Fate/Zero：切嗣发动令咒">
+          <span class="src-tag">原作 · Fate/Zero</span>
+        </div>
+        <div class="step"><span class="no">②</span><p>最后关头，他没有解释一个字，直接用<b>两道令咒强制她</b>执行自己无法理解的命令。</p></div>
+      </div>
+      <div class="frame">
+        <div class="img-frame">
+          <img src="../assets/grail-war-agent-vision/command-seal.jpg" alt="Fate/Zero：Saber 含泪被迫执行">
+          <span class="src-tag">原作 · Fate/Zero</span>
+        </div>
+        <div class="step"><span class="no">③</span><p>骑士王<b>含着泪举起了圣剑</b>——她到最后也不明白，自己的 Master 为什么这样做。</p></div>
+      </div>
+      <div class="frame">
+        <div class="img-frame">
+          <img src="../assets/grail-war-agent-vision/grail-burning.jpg" alt="Fate/Zero：圣杯被摧毁，大火倾泻">
+          <span class="src-tag">原作 · Fate/Zero</span>
+        </div>
+        <div class="step"><span class="no">④</span><p>圣杯在她剑下焚毁。这对从未交流过的搭档，<b>以跨越作品的怨恨收场</b>。</p></div>
+      </div>
+    </div>
+
+    <div class="duo flip">
+      <div class="canon reveal" style="align-self:center">
+        <blockquote>强制可以赢得服从，赢不来配合。<span class="who">而另一对搭档，给出了完全相反的答案——见下一章</span></blockquote>
+      </div>
+      <div class="exp-col">
+        <aside class="exp reveal">
+          <span class="tag en">Expected Experience <b>预期体验</b></span>
+          <p>英灵带着<strong>自己的圣杯愿望与行事准则</strong>而来。你的提议，他可能当面拒绝：<strong>"不。本王不打这种仗。"</strong></p>
+          <p>说服、让步、交换、信任——你与他的每一次交流，都在改变他作战的方式，乃至战争的结果。</p>
+          <div class="divider"></div>
+          <p class="note">令咒只有三划，是昂贵的最终强制手段。用不用、何时用，本身就是你与英灵关系的试金石。</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CH5 配合 ============ -->
+  <section class="chapter" id="ch5">
+    <div class="ch-head reveal">
+      <span class="ch-num" aria-hidden="true">伍</span>
+      <span class="ch-label en">Union · 亮点五</span>
+      <h2>配合——战场上，你有自己的位置</h2>
+      <p class="ch-intro">原作的例子（正面答案）：Waver 与 Iskandar。Master 不是遥控指挥官——并肩，是字面意义的。</p>
+    </div>
+
+    <div class="seq reveal">
+      <div class="frame">
+        <div class="img-frame">
+          <img src="../assets/grail-war-agent-vision/gordius-wheel.jpg" alt="Fate/Zero：Waver 与 Iskandar 同乘神威车轮冲锋">
+          <span class="src-tag">原作 · Fate/Zero</span>
+        </div>
+        <div class="step"><span class="no">①</span><p>Waver 没有留在安全的后方——他被王一把拉上牛车，在雷鸣的车轮上<b>与征服王一同冲锋</b>。王要他看清战争，也要他分担战争。</p></div>
+      </div>
+      <div class="frame">
+        <div class="img-frame">
+          <img src="../assets/grail-war-agent-vision/waver-kneel.jpg" alt="Fate/Zero：Waver 单膝跪地，宣誓为臣">
+          <span class="src-tag">原作 · Fate/Zero</span>
+        </div>
+        <div class="step"><span class="no">②</span><p>决战之前，少年在战车上<b>单膝跪地宣誓为臣</b>——被拒绝过、被反问过的他，赢得了王的承认。</p></div>
+      </div>
+      <div class="frame">
+        <div class="img-frame">
+          <img src="../assets/grail-war-agent-vision/waver-iskandar-bond.jpg" alt="Fate/Zero：Waver 用最后的令咒下令">
+          <span class="src-tag">原作 · Fate/Zero</span>
+        </div>
+        <div class="step"><span class="no">③</span><p>他用尽最后的令咒，下的命令是<b>"去赢"</b>——同一个强制工具，在信任的关系里成了托付的印章。</p></div>
+      </div>
+    </div>
+
+    <div class="duo">
+      <div class="canon reveal" style="align-self:center">
+        <blockquote>同样的令咒：切嗣用它摧毁了关系，Waver 用它完成了托付。<span class="who">配合的质量，就是这场战争真正的胜负手</span></blockquote>
+      </div>
+      <div class="exp-col">
+        <aside class="exp reveal">
+          <span class="tag en">Expected Experience <b>预期体验</b></span>
+          <p>战斗中，英灵与你<strong>实时协商</strong>："枪兵的眼睛只会盯着我。你走到桥灯下——三秒就够。"</p>
+          <p>他承担战斗，你承担<strong>只有 Master 能补的那一环</strong>——诱敌、时机、令咒、撤退的决断。</p>
+          <div class="divider"></div>
+          <p class="note">胜负不取决于数值，取决于你们的配合——这就是"找到与英灵最佳配合方式"的游戏循环。</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ENDING ============ -->
+  <section class="ending" id="ending">
+    <div class="ending-bg"></div>
+    <div class="ending-copy reveal">
+      <p class="en-line en">The War Is Real</p>
+      <h2>而这场战争里，<br>对面的每一对搭档，也都是真的</h2>
+      <p>同一座城市里，其他 Master 也是真人玩家——各自的圣遗物、各自独一无二的英灵、各自摸索出来的配合方式。你们在同一场战争里相遇。</p>
+      <p class="tagline">与现实世界的时间同步、在另一个世界时刻进行着的、真实的圣杯战争。<br>召唤英灵，建立羁绊，找到与他并肩的方式——赢下圣杯。</p>
+    </div>
+  </section>
+
+  <footer>
+    <span>PROJECT ANIMUS · 内部创意文档</span>
+    <span>配图出自 Fate/Zero（仅作内部概念参考）· 2026.07</span>
+  </footer>
+
+</div>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }
+  }, { threshold: 0.06, rootMargin: '0px 0px -6% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // 缺图时替换为占位卡（配图仍在搜集中）
+  document.querySelectorAll('.img-frame img').forEach(img => {
+    img.addEventListener('error', () => {
+      const frame = img.closest('.img-frame');
+      if (!frame) return;
+      const ph = document.createElement('div');
+      ph.className = 'img-ph';
+      ph.innerHTML = `<div><span class="ph-tag">配图搜集中</span><span class="ph-desc">${img.alt || ''}</span></div>`;
+      frame.replaceWith(ph);
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>活着的星球 · 愿景概念</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06110c;
+  --panel: #0b1a13;
+  --panel-2: #10241a;
+  --ink: #eef6ee;
+  --muted: #9cb5a5;
+  --line: rgba(238,246,238,.14);
+  --aurora: #5ce6a8;
+  --glow: #8ff0c8;
+  --cyan: #6fd7e8;
+  --amber: #f0b45c;
+  --ember: #ff7a5c;
+  --shadow: rgba(0,0,0,.5);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--bg); }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  font-weight: 300;
+  line-height: 1.9;
+  background:
+    radial-gradient(ellipse at 12% 0%, rgba(92,230,168,.10), transparent 36rem),
+    radial-gradient(ellipse at 85% 8%, rgba(111,215,232,.07), transparent 30rem),
+    linear-gradient(180deg, #06110c 0%, #0a1a12 50%, #06110c 100%);
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 10;
+  background:
+    linear-gradient(rgba(238,246,238,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(238,246,238,.015) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,.7), transparent 80%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.7), transparent 80%);
+}
+
+a { color: inherit; }
+.page { position: relative; z-index: 1; width: min(1280px, 100%); margin: 0 auto; }
+
+/* ===== NAV ===== */
+.nav {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 13px clamp(18px, 4vw, 56px);
+  background: rgba(6,17,12,.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.nav strong {
+  font-family: "Noto Serif SC", serif; font-weight: 700;
+  font-size: clamp(15px, 1.6vw, 19px); letter-spacing: .06em;
+}
+.nav strong em { font-style: normal; color: var(--aurora); }
+.nav-links { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
+.nav a {
+  display: inline-flex; align-items: center; min-height: 40px; padding: 0 13px;
+  color: var(--muted); text-decoration: none; font-size: 13.5px; letter-spacing: .06em;
+  border-radius: 999px; border: 1px solid transparent;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.nav a:hover, .nav a:focus-visible {
+  color: var(--ink); border-color: rgba(92,230,168,.55); background: rgba(92,230,168,.07); outline: none;
+}
+
+/* ===== HERO ===== */
+.hero {
+  position: relative; min-height: 96vh;
+  display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+  padding: clamp(90px, 12vw, 150px) clamp(20px, 5vw, 64px) clamp(56px, 7vw, 92px);
+  overflow: hidden; isolation: isolate;
+}
+.hero::after {
+  content: ""; position: absolute; inset: auto 0 0; height: 28vh; z-index: -1;
+  background: linear-gradient(to top, var(--bg) 4%, transparent);
+}
+.hero-copy { max-width: 560px; }
+.hero-planet { display: flex; justify-content: center; align-items: center; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 12px;
+  color: var(--aurora); font-size: 12.5px; letter-spacing: .18em; margin-bottom: 22px;
+}
+.eyebrow::before { content: ""; width: 42px; height: 1px; background: var(--aurora); }
+
+h1 {
+  margin: 0 0 26px;
+  font-family: "Fraunces", "Noto Serif SC", serif; font-weight: 800;
+  font-size: clamp(34px, 5.5vw, 64px);
+  line-height: 1.25; letter-spacing: .01em;
+}
+
+.hero-lead {
+  font-size: clamp(15.5px, 1.6vw, 18px); color: var(--ink);
+  max-width: 28em; margin: 0 0 18px;
+}
+.hero-lead strong { font-weight: 500; color: var(--glow); }
+
+.hero-source {
+  font-size: clamp(13px, 1.3vw, 15px); color: var(--muted);
+  max-width: 28em; margin: 0;
+}
+.hero-source em { font-style: normal; color: var(--aurora); }
+
+/* staggered hero */
+.hero-copy > * {
+  opacity: 0; transform: translateY(26px);
+  animation: rise .9s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.hero-copy > *:nth-child(1) { animation-delay: 0s; }
+.hero-copy > *:nth-child(2) { animation-delay: .15s; }
+.hero-copy > *:nth-child(3) { animation-delay: .3s; }
+.hero-copy > *:nth-child(4) { animation-delay: .45s; }
+@keyframes rise { to { opacity: 1; transform: none; } }
+
+/* hero planet breathing */
+@keyframes breathe {
+  0%, 100% { filter: drop-shadow(0 0 40px rgba(92,230,168,.3)); transform: scale(1); }
+  50% { filter: drop-shadow(0 0 70px rgba(92,230,168,.55)); transform: scale(1.03); }
+}
+@keyframes orbit { to { transform: rotate(360deg); } }
+@keyframes orbit-r { to { transform: rotate(-360deg); } }
+.planet-svg { animation: breathe 7s ease-in-out infinite; }
+
+/* ===== SECTIONS ===== */
+.section {
+  position: relative;
+  padding: clamp(72px, 9vw, 128px) clamp(20px, 5vw, 64px) clamp(30px, 4vw, 56px);
+}
+.section + .section { border-top: 1px solid rgba(238,246,238,.06); }
+
+.section-kicker {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--aurora); font-size: 12px; letter-spacing: .18em; margin-bottom: 14px;
+}
+.section-kicker::before { content: ""; width: 26px; height: 1px; background: var(--aurora); }
+
+h2 {
+  margin: 0 0 18px;
+  font-family: "Fraunces", "Noto Serif SC", serif; font-weight: 800;
+  font-size: clamp(24px, 3.4vw, 42px); line-height: 1.35; letter-spacing: .015em;
+}
+
+.section-intro {
+  color: var(--muted); font-size: 15.5px; max-width: 44em; margin: 0 0 clamp(30px, 4vw, 50px);
+}
+
+/* cards grid */
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 36px; }
+.card {
+  padding: 24px 24px 22px;
+  border: 1px solid var(--line); border-top: 2px solid var(--aurora);
+  background: rgba(11,26,19,.72); backdrop-filter: blur(6px);
+}
+.card h3 {
+  margin: 0 0 8px;
+  font-family: "Noto Serif SC", serif; font-weight: 700;
+  font-size: 17px; color: var(--ink);
+}
+.card p { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.8; }
+
+/* variant callout */
+.variant-note {
+  margin: 36px 0; padding: 20px 24px;
+  border-left: 3px solid var(--cyan);
+  background: linear-gradient(135deg, rgba(111,215,232,.06), rgba(11,26,19,.8) 50%);
+  font-size: 14.5px; color: var(--ink);
+}
+.variant-note .tag {
+  display: block; color: var(--cyan); font-size: 11.5px;
+  letter-spacing: .2em; margin-bottom: 10px;
+}
+
+/* AI one-liner */
+.ai-line {
+  margin: 0; padding: 16px 24px;
+  border: 1px solid rgba(92,230,168,.2);
+  background: rgba(92,230,168,.04);
+  font-size: 14.5px; color: var(--glow);
+  text-align: center;
+}
+
+/* ===== CHANNELS (Part 2) ===== */
+.channel-svg-wrap {
+  display: flex; justify-content: center;
+  margin-bottom: clamp(30px, 4vw, 50px);
+}
+
+.channel-groups {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  margin-bottom: 36px;
+}
+.channel-group {
+  padding: 28px 26px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+.channel-group h3 {
+  margin: 0 0 16px;
+  font-family: "Noto Serif SC", serif; font-weight: 700;
+  font-size: 18px;
+}
+.channel-group.body-ch h3 { color: var(--aurora); }
+.channel-group.mind-ch h3 { color: var(--cyan); }
+.channel-group ul {
+  list-style: none; padding: 0; margin: 0;
+}
+.channel-group li {
+  padding: 8px 0; border-bottom: 1px solid rgba(238,246,238,.06);
+  font-size: 14px; color: var(--muted);
+}
+.channel-group li:last-child { border-bottom: none; }
+.channel-group li strong { font-weight: 500; color: var(--ink); }
+
+/* principles row */
+.principles {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+}
+.principle {
+  padding: 22px 20px 20px;
+  border: 1px solid var(--line); border-top: 2px solid var(--aurora);
+  background: var(--panel);
+}
+.principle .num { display: block; color: var(--aurora); font-size: 28px; font-family: "Fraunces", serif; font-weight: 600; margin-bottom: 8px; }
+.principle h3 { margin: 0 0 8px; font-size: 15px; font-weight: 700; color: var(--ink); }
+.principle p { margin: 0; font-size: 13.5px; color: var(--muted); line-height: 1.75; }
+
+/* ===== TIMELINE (Part 3) ===== */
+.persona-bar {
+  margin-bottom: clamp(30px, 4vw, 50px);
+  padding: 16px 24px;
+  border: 1px solid rgba(92,230,168,.25);
+  background: rgba(92,230,168,.04);
+  font-size: 15px; text-align: center; color: var(--ink);
+}
+.persona-bar strong { color: var(--aurora); font-weight: 700; }
+
+.timeline { position: relative; max-width: 900px; margin: 0 auto; }
+.timeline::before {
+  content: ""; position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 2px; background: linear-gradient(to bottom, var(--aurora), rgba(92,230,168,.15));
+  transform: translateX(-1px);
+}
+
+.act {
+  position: relative;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  margin-bottom: 48px;
+}
+.act:last-child { margin-bottom: 0; }
+
+.act-dot {
+  position: absolute; left: 50%; top: 32px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--aurora); border: 3px solid var(--bg);
+  transform: translateX(-50%); z-index: 2;
+}
+
+.act-img {
+  display: block;
+  aspect-ratio: 3/2; max-width: 100%;
+  border: 0;
+  background: transparent;
+  overflow: hidden;
+}
+.act-img img {
+  display: block;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+.act-content {
+  padding: 24px 28px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+.act-content h3 {
+  margin: 0 0 12px;
+  font-family: "Noto Serif SC", serif; font-weight: 700;
+  font-size: 18px; color: var(--ink);
+}
+.act-content .act-label {
+  display: block; font-size: 12px; color: var(--aurora);
+  letter-spacing: .12em; margin-bottom: 4px;
+}
+.act-content dl { margin: 0; }
+.act-content dt {
+  font-size: 12.5px; color: var(--muted); letter-spacing: .08em;
+  margin-top: 10px;
+}
+.act-content dd {
+  margin: 2px 0 0; font-size: 14.5px; color: var(--ink);
+}
+
+/* act even: image right, text left */
+.act:nth-child(odd) .act-img { grid-column: 1; grid-row: 1; }
+.act:nth-child(odd) .act-content { grid-column: 2; grid-row: 1; }
+.act:nth-child(even) .act-img { grid-column: 2; grid-row: 1; }
+.act:nth-child(even) .act-content { grid-column: 1; grid-row: 1; }
+
+/* act color accents */
+.act[data-act="1"] .act-dot { background: var(--cyan); }
+.act[data-act="1"] .act-content { border-top: 2px solid var(--cyan); }
+.act[data-act="2"] .act-dot { background: var(--amber); }
+.act[data-act="2"] .act-content { border-top: 2px solid var(--amber); }
+.act[data-act="3"] .act-dot { background: var(--ember); }
+.act[data-act="3"] .act-content { border-top: 2px solid var(--ember); }
+.act[data-act="4"] .act-dot { background: var(--cyan); }
+.act[data-act="4"] .act-content { border-top: 2px solid var(--cyan); }
+.act[data-act="5"] .act-dot { background: var(--aurora); }
+.act[data-act="5"] .act-content { border-top: 2px solid var(--aurora); }
+
+/* progression line — cognitive arc */
+.progression {
+  margin: clamp(40px, 5vw, 60px) 0 0;
+  padding: 24px 20px;
+  border: 1px solid rgba(92,230,168,.18);
+  background: linear-gradient(90deg, rgba(111,215,232,.04), rgba(92,230,168,.06));
+}
+.progression-label {
+  text-align: center;
+  font-size: 12.5px; color: var(--aurora); letter-spacing: .18em;
+  margin-bottom: 20px;
+}
+.progression-track {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; flex-wrap: wrap;
+}
+.p-node {
+  flex: 1; min-width: 100px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 14px 10px;
+  border: 1px solid var(--line);
+  background: rgba(11,26,19,.6);
+}
+.p-num {
+  font-family: "Fraunces", serif; font-weight: 600;
+  font-size: 20px; color: var(--muted); letter-spacing: .04em;
+}
+.p-word {
+  font-size: 13px; color: var(--ink); text-align: center; line-height: 1.4;
+}
+.p-node.highlight {
+  border-color: var(--aurora);
+  background: rgba(92,230,168,.08);
+}
+.p-node.highlight .p-num { color: var(--aurora); }
+.p-node.highlight .p-word { color: var(--glow); }
+.p-arrow {
+  width: 24px; height: 1px; background: var(--aurora); opacity: .5;
+  flex: 0 0 auto;
+}
+
+/* ===== COMBINATIONS (Part 4) ===== */
+.axes {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  margin-bottom: clamp(30px, 4vw, 44px);
+}
+.axis {
+  padding: 24px 22px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+.axis h3 {
+  margin: 0 0 14px;
+  font-family: "Noto Serif SC", serif; font-weight: 700;
+  font-size: 16px; color: var(--aurora);
+}
+.axis ul { list-style: none; padding: 0; margin: 0; }
+.axis li {
+  padding: 6px 0; font-size: 14px; color: var(--muted);
+  border-bottom: 1px solid rgba(238,246,238,.05);
+}
+.axis li:last-child { border-bottom: none; }
+.axis li strong { font-weight: 500; color: var(--ink); }
+.axis li .this { color: var(--aurora); font-size: 11px; letter-spacing: .1em; margin-left: 6px; }
+
+/* combo vignettes */
+.combos {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+.combo {
+  padding: 24px 24px 22px;
+  border: 1px solid var(--line); border-left: 3px solid var(--aurora);
+  background: linear-gradient(135deg, rgba(92,230,168,.04), var(--panel) 40%);
+}
+.combo h3 {
+  margin: 0 0 8px;
+  font-size: 15.5px; font-weight: 700; color: var(--ink);
+}
+.combo p { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.8; }
+
+/* combo accent colors */
+.combo:nth-child(1) { border-left-color: var(--ember); }
+.combo:nth-child(2) { border-left-color: var(--amber); }
+.combo:nth-child(3) { border-left-color: var(--cyan); }
+.combo:nth-child(4) { border-left-color: var(--aurora); }
+
+/* closing quote */
+.closing-quote {
+  text-align: center;
+  padding: clamp(48px, 7vw, 96px) 20px;
+}
+.closing-quote blockquote {
+  margin: 0; padding: 0;
+  font-family: "Fraunces", "Noto Serif SC", serif; font-weight: 600;
+  font-size: clamp(22px, 3.2vw, 38px); line-height: 1.6;
+  color: var(--ink);
+}
+.closing-quote blockquote .dim { color: var(--muted); }
+
+/* ===== FOOTER ===== */
+footer {
+  padding: 40px clamp(20px, 5vw, 64px);
+  border-top: 1px solid var(--line);
+  text-align: center;
+  font-size: 13px; color: var(--muted);
+}
+
+/* ===== SCROLL REVEAL ===== */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 840px) {
+  .hero { grid-template-columns: 1fr; text-align: center; }
+  .hero-copy { max-width: 100%; margin: 0 auto; }
+  .hero-planet { margin-top: 40px; }
+  .hero-planet svg { width: 280px; height: 280px; }
+  .hero-lead, .hero-source { max-width: 100%; }
+  .cards { grid-template-columns: 1fr; }
+  .channel-groups { grid-template-columns: 1fr; }
+  .principles { grid-template-columns: 1fr; }
+  .timeline::before { left: 20px; }
+  .act { grid-template-columns: 1fr; margin-left: 40px; }
+  .act-dot { left: -20px; transform: translateX(-50%); }
+  .act:nth-child(odd) .act-img,
+  .act:nth-child(even) .act-img { grid-column: 1; grid-row: 1; }
+  .act:nth-child(odd) .act-content,
+  .act:nth-child(even) .act-content { grid-column: 1; grid-row: 2; }
+  .axes { grid-template-columns: 1fr; }
+  .combos { grid-template-columns: 1fr; }
+  .progression-track { flex-direction: column; }
+  .p-arrow { width: 1px; height: 20px; }
+  .p-node { min-width: 0; width: 100%; }
+}
+</style>
+<style>
+  .site-nav{position:fixed;top:0;left:0;right:0;z-index:9999;display:flex;align-items:center;gap:16px;padding:10px 20px;background:rgba(8,10,18,.72);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid rgba(255,255,255,.08);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif;font-size:13px;letter-spacing:.02em;color:rgba(255,255,255,.9)}
+  .site-nav a{color:rgba(255,255,255,.7);text-decoration:none;padding:6px 12px;border-radius:6px;transition:color .18s,background .18s;white-space:nowrap}
+  .site-nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+  .site-nav a[aria-current="page"]{color:#fff;background:rgba(255,255,255,.14);font-weight:500}
+  .site-nav__home{font-size:12px;opacity:.85}
+  .site-nav__links{display:flex;gap:4px;margin-left:auto}
+  body{padding-top:46px}
+  @media (max-width:720px){.site-nav{padding:8px 12px;gap:10px;font-size:12px}.site-nav a{padding:5px 8px}body{padding-top:42px}}
+</style>
+</head>
+<body>
+<nav class="site-nav" aria-label="站内导航">
+  <a class="site-nav__home" href="index.html">← 主页</a>
+  <div class="site-nav__links">
+    <a href="living-planet-vision.html" aria-current="page">活着的星球</a>
+    <a href="kingdom-hearts-world-pattern.html">Kingdom Hearts 范式</a>
+    <a href="grail-war-agent-vision.html">圣杯战争 × Agent</a>
+  </div>
+</nav>
+<div class="page">
+
+<!-- NAV -->
+<nav class="nav">
+  <strong><em>活着的星球</em></strong>
+  <div class="nav-links">
+    <a href="#idea">核心思路</a>
+    <a href="#channels">交流途径</a>
+    <a href="#simulation">文明演绎</a>
+    <a href="#combinations">组合想象</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="hero">
+  <div class="hero-copy">
+    <div class="eyebrow">PROJECT ANIMUS · 愿景概念 · 方向候选</div>
+    <h1>活着的星球</h1>
+    <p class="hero-lead">一颗拥有意识的星球——用<strong>风、兽群、季候与梦</strong>，回应智慧生命的一切作为。</p>
+    <p class="hero-source">灵感源自阿西莫夫《基地》系列的<em>盖亚</em>：一颗全体生灵与山河共享同一意识的星球。</p>
+  </div>
+  <div class="hero-planet">
+    <svg class="planet-svg" viewBox="0 0 400 400" width="380" height="380" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="heroGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#5ce6a8" stop-opacity=".25"/>
+          <stop offset="60%" stop-color="#5ce6a8" stop-opacity=".08"/>
+          <stop offset="100%" stop-color="#06110c" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="planetBody" cx="42%" cy="38%" r="55%">
+          <stop offset="0%" stop-color="#1a4a35"/>
+          <stop offset="50%" stop-color="#0e2a1e"/>
+          <stop offset="100%" stop-color="#071510"/>
+        </radialGradient>
+      </defs>
+      <!-- glow -->
+      <circle cx="200" cy="200" r="195" fill="url(#heroGlow)"/>
+      <!-- planet body -->
+      <circle cx="200" cy="200" r="130" fill="url(#planetBody)" stroke="#5ce6a8" stroke-opacity=".2" stroke-width="1"/>
+      <!-- surface rivers / neural lines -->
+      <g opacity=".35" stroke="#5ce6a8" stroke-width=".8" fill="none">
+        <path d="M160,140 Q180,170 170,200 Q155,230 175,260"/>
+        <path d="M200,120 Q220,155 210,190 Q195,220 215,250"/>
+        <path d="M230,150 Q245,175 240,205 Q230,235 245,260"/>
+        <path d="M145,180 Q175,185 200,175 Q225,168 255,180"/>
+        <path d="M150,220 Q180,210 210,215 Q240,225 260,215"/>
+      </g>
+      <!-- civilization lights -->
+      <g fill="#f0b45c">
+        <circle cx="175" cy="175" r="2.5" opacity=".8"/>
+        <circle cx="210" cy="195" r="2" opacity=".6"/>
+        <circle cx="195" cy="220" r="1.8" opacity=".7"/>
+        <circle cx="230" cy="185" r="1.5" opacity=".5"/>
+        <circle cx="165" cy="205" r="1.8" opacity=".6"/>
+      </g>
+      <!-- ocean current rings -->
+      <g fill="none" stroke-width="1" opacity=".3">
+        <ellipse cx="200" cy="200" rx="155" ry="148" stroke="#5ce6a8" style="animation: orbit 65s linear infinite; transform-origin: 200px 200px;"/>
+        <ellipse cx="200" cy="200" rx="170" ry="135" stroke="#8ff0c8" stroke-dasharray="12 8" style="animation: orbit-r 80s linear infinite; transform-origin: 200px 200px;"/>
+        <ellipse cx="200" cy="200" rx="142" ry="160" stroke="#6fd7e8" stroke-dasharray="6 14" style="animation: orbit 95s linear infinite; transform-origin: 200px 200px;"/>
+      </g>
+      <!-- echo ripple -->
+      <circle cx="200" cy="200" r="175" fill="none" stroke="#5ce6a8" stroke-opacity=".12" stroke-width=".6" stroke-dasharray="4 6"/>
+    </svg>
+  </div>
+</header>
+
+<!-- PART 1: 核心思路 -->
+<section class="section" id="idea">
+  <div class="section-kicker">01 · 核心思路</div>
+  <h2>一颗有意识的星球，和它孕育的文明</h2>
+  <p class="section-intro">这颗星球孕育了一切生命。当生命拥有智慧，便从星球的共享意识中独立出来——它们是星球的孩子，却不知道脚下的世界正在注视自己。星球有意识、有记忆、有品格；文明的一切行为——狩猎、耕种、采掘、发射——它都感知得到，也都会回应。</p>
+
+  <div class="variant-note reveal">
+    <span class="tag">关键设定</span>
+    <strong style="color:var(--cyan)">智慧即分离</strong>——生命一旦拥有智慧，就从星球的共享意识中独立出来，成为星球孕育的孩子。有了"我"，才有"它"，从此才有感知、理解、认知它的漫长文明史。
+  </div>
+
+  <div class="cards reveal">
+    <div class="card">
+      <h3>共享意识</h3>
+      <p>星球本体与它的山河、草木、兽群共享同一意识——直到生命拥有智慧，便从中独立出来。星球仍然感知一切，但智慧文明已经是"外面的人"。</p>
+    </div>
+    <div class="card">
+      <h3>星球级记忆</h3>
+      <p>记忆写进岩层与洋流，逝者的经验被整体吸收。这颗星球什么都不忘。</p>
+    </div>
+    <div class="card">
+      <h3>共识生态</h3>
+      <p>捕食、天气、地质都是全星球协商的结果——没有"自然灾害"，只有星球的决定。</p>
+    </div>
+    <div class="card">
+      <h3>星球人格</h3>
+      <p>每颗星球都有自己的性格与脾气——有的谨慎克制，有的有求必应，有的把文明视作病原。人格决定了它如何回应文明的行为。</p>
+    </div>
+  </div>
+
+  <p class="ai-line reveal">这颗星球在产品里就是一个持续运行的 AI——文明的一切行为是它的输入，整个生态是它的输出设备。</p>
+</section>
+
+<!-- PART 2: 交流途径 -->
+<section class="section" id="channels">
+  <div class="section-kicker">02 · 交流途径</div>
+  <h2>它如何回应</h2>
+  <p class="section-intro">星球会对智慧文明的行为做出回应——回应的方式取决于双方的关系，以及文明做了什么。对猎人用兽群，对农人用季候，对科学家用数据里的异常。</p>
+
+  <!-- Channel diagram placeholder SVG -->
+  <div class="channel-svg-wrap reveal">
+    <svg viewBox="0 0 1200 520" width="100%" style="max-width:1000px" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="chCore" cx="50%" cy="50%" r="40%">
+          <stop offset="0%" stop-color="#5ce6a8" stop-opacity=".2"/>
+          <stop offset="100%" stop-color="#06110c" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <!-- bg -->
+      <rect width="1200" height="520" fill="none"/>
+      <!-- central core glow -->
+      <circle cx="600" cy="260" r="180" fill="url(#chCore)"/>
+      <!-- central planet mini -->
+      <circle cx="600" cy="260" r="56" fill="#0e2a1e" stroke="#5ce6a8" stroke-opacity=".4" stroke-width="1.5"/>
+      <circle cx="600" cy="260" r="38" fill="none" stroke="#5ce6a8" stroke-opacity=".2" stroke-width=".8"/>
+      <text x="600" y="265" text-anchor="middle" font-size="13" fill="#5ce6a8" font-family="Noto Sans SC" opacity=".8">心 智 核</text>
+      <!-- input flows (left) -->
+      <g opacity=".6">
+        <text x="80" y="140" font-size="28" fill="#f0b45c">🔥</text>
+        <text x="100" y="165" font-size="11" fill="#9cb5a5" font-family="Noto Sans SC">狩猎</text>
+        <path d="M120,148 Q300,160 540,255" stroke="#f0b45c" stroke-opacity=".3" stroke-width="1" fill="none" stroke-dasharray="4 4"/>
+
+        <text x="60" y="240" font-size="28" fill="#f0b45c">🌾</text>
+        <text x="80" y="265" font-size="11" fill="#9cb5a5" font-family="Noto Sans SC">耕种</text>
+        <path d="M100,248 Q320,255 540,258" stroke="#f0b45c" stroke-opacity=".3" stroke-width="1" fill="none" stroke-dasharray="4 4"/>
+
+        <text x="80" y="340" font-size="28" fill="#f0b45c">🏭</text>
+        <text x="100" y="365" font-size="11" fill="#9cb5a5" font-family="Noto Sans SC">工业</text>
+        <path d="M120,348 Q310,340 540,262" stroke="#f0b45c" stroke-opacity=".3" stroke-width="1" fill="none" stroke-dasharray="4 4"/>
+
+        <text x="60" y="430" font-size="28" fill="#f0b45c">📡</text>
+        <text x="80" y="455" font-size="11" fill="#9cb5a5" font-family="Noto Sans SC">科技</text>
+        <path d="M100,438 Q300,400 540,268" stroke="#f0b45c" stroke-opacity=".3" stroke-width="1" fill="none" stroke-dasharray="4 4"/>
+      </g>
+      <!-- label: input -->
+      <text x="130" y="80" font-size="14" fill="#f0b45c" font-family="Noto Sans SC" letter-spacing=".12em">文 明 行 为 · 输 入</text>
+      <!-- output body (right-top) -->
+      <g opacity=".6">
+        <path d="M660,240 Q820,180 1020,130" stroke="#5ce6a8" stroke-opacity=".4" stroke-width="1.2" fill="none"/>
+        <path d="M660,250 Q840,210 1040,200" stroke="#5ce6a8" stroke-opacity=".3" stroke-width="1" fill="none"/>
+        <path d="M660,260 Q850,250 1050,260" stroke="#5ce6a8" stroke-opacity=".3" stroke-width="1" fill="none"/>
+        <text x="1020" y="120" font-size="13" fill="#5ce6a8" font-family="Noto Sans SC">气 象</text>
+        <text x="1050" y="195" font-size="13" fill="#5ce6a8" font-family="Noto Sans SC">生 态</text>
+        <text x="1060" y="258" font-size="13" fill="#5ce6a8" font-family="Noto Sans SC">地 质</text>
+      </g>
+      <text x="980" y="80" font-size="14" fill="#5ce6a8" font-family="Noto Sans SC" letter-spacing=".12em">身 体 通 道</text>
+      <!-- output mind (right-bottom) -->
+      <g opacity=".6">
+        <path d="M660,275 Q840,310 1030,340" stroke="#6fd7e8" stroke-opacity=".4" stroke-width="1.2" fill="none"/>
+        <path d="M660,280 Q830,340 1020,400" stroke="#6fd7e8" stroke-opacity=".3" stroke-width="1" fill="none"/>
+        <text x="1040" y="340" font-size="13" fill="#6fd7e8" font-family="Noto Sans SC">梦 境</text>
+        <text x="1030" y="400" font-size="13" fill="#6fd7e8" font-family="Noto Sans SC">直 觉</text>
+      </g>
+      <text x="980" y="470" font-size="14" fill="#6fd7e8" font-family="Noto Sans SC" letter-spacing=".12em">精 神 通 道</text>
+    </svg>
+  </div>
+
+  <div class="channel-groups reveal">
+    <div class="channel-group body-ch">
+      <h3>身体通道 · 星球的身体</h3>
+      <ul>
+        <li><strong>气象</strong> —— 风向、降雨的时机与形状</li>
+        <li><strong>生态</strong> —— 兽群迁徙、花期荣枯、鸟群阵形</li>
+        <li><strong>地质</strong> —— 泉眼枯涌、河道改徙、震颤</li>
+        <li><strong>天光</strong> —— 极光与云隙光的节律</li>
+      </ul>
+    </div>
+    <div class="channel-group mind-ch">
+      <h3>精神通道 · 星球的精神</h3>
+      <ul>
+        <li><strong>梦境</strong> —— 睡眠中的图景与信息</li>
+        <li><strong>直觉</strong> —— 无来由的确信与预感</li>
+        <li><strong>集体情绪</strong> —— 不约而同的感受浪潮</li>
+        <li><strong>幻象</strong> —— 按文明的接受度分级投放</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="principles reveal">
+    <div class="principle">
+      <span class="num">①</span>
+      <h3>适配性回应</h3>
+      <p>它永远用"你此刻能理解的方式"回应——形式取决于关系和文明做了什么。</p>
+    </div>
+    <div class="principle">
+      <span class="num">②</span>
+      <h3>迹象必现</h3>
+      <p>每次回应都留下可观察的变化；读成什么，是文明自己的事。</p>
+    </div>
+    <div class="principle">
+      <span class="num">③</span>
+      <h3>分级显露</h3>
+      <p>文明能理解多少，它就显露多少。原著盖亚的谨慎品格。</p>
+    </div>
+  </div>
+</section>
+
+<!-- PART 3: 文明演绎 -->
+<section class="section" id="simulation">
+  <div class="section-kicker">03 · 文明演绎</div>
+  <h2>一颗守望者星球的五幕历史</h2>
+  <p class="section-intro">一个文明从蒙昧到相认，与脚下这颗活着的星球共同走过的漫长岁月。</p>
+
+  <div class="persona-bar reveal">本次演绎聚焦一种星球人格：<strong>守望者</strong> —— 谨慎、克制，倾向保护而非干预。</div>
+
+  <div class="timeline">
+    <!-- Act 1 -->
+    <div class="act reveal" data-act="1">
+      <div class="act-dot"></div>
+      <div class="act-img">
+        <img src="../assets/living-planet-vision/act1-echo-canyon.jpg"
+             alt="第一幕 · 蒙昧-回声：月光下的深峡谷，孩子哼唱，风把调子哼回来"
+             width="1536" height="1024" loading="lazy">
+      </div>
+      <div class="act-content">
+        <span class="act-label">第一幕</span>
+        <h3>蒙昧 —— 回声</h3>
+        <dl>
+          <dt>星球做了什么</dt>
+          <dd>当孩子第一次对着峡谷哼出调子，它没有现身——它只是让风把这段调子完整地哼了回来。旱季来临，兽群"迷了路"，一路走向饥饿的部落——它不施舍食物，只是让食物出现在能被找到的地方。</dd>
+          <dt>文明读到了什么</dt>
+          <dd>山有灵。</dd>
+          <dt>文明的认知</dt>
+          <dd style="color:var(--glow)">山中之灵——某种模糊的、栖居于世界的神秘力量。</dd>
+          <dt>关系</dt>
+          <dd style="color:var(--cyan)">敬畏</dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- Act 2 -->
+    <div class="act reveal" data-act="2">
+      <div class="act-dot"></div>
+      <div class="act-img">
+        <img src="../assets/living-planet-vision/act2-covenant-fields.jpg"
+             alt="第二幕 · 农耕-立约：祭坛烟升入云层，绿色雨丝落向田野，远处焚山村落干旱无雨"
+             width="1536" height="1024" loading="lazy">
+      </div>
+      <div class="act-content">
+        <span class="act-label">第二幕</span>
+        <h3>农耕 —— 立约</h3>
+        <dl>
+          <dt>星球做了什么</dt>
+          <dd>当村落学会用祭祀求雨，它开始让雨水应验祭祀的历法——但只应验善待土地的村落。焚山、毁林的村落，它不降灾罚——只是收回了曾经给它们的季候恩惠：虫害与干旱"恰好"落在那里。</dd>
+          <dt>文明读到了什么</dt>
+          <dd>可以立约的神。</dd>
+          <dt>文明的认知</dt>
+          <dd style="color:var(--glow)">有意志的神灵——它听得懂敬畏，也会回应虔诚。</dd>
+          <dt>关系</dt>
+          <dd style="color:var(--amber)">交换</dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- Act 3 -->
+    <div class="act reveal" data-act="3">
+      <div class="act-dot"></div>
+      <div class="act-img">
+        <img src="../assets/living-planet-vision/act3-deaf-industry.jpg"
+             alt="第三幕 · 工业-失聪：烟囱、黑河与削平的山脉占据画面，远处只剩一线退去的极光"
+             width="1536" height="1024" loading="lazy">
+      </div>
+      <div class="act-content">
+        <span class="act-label">第三幕</span>
+        <h3>工业 —— 失聪</h3>
+        <dl>
+          <dt>星球做了什么</dt>
+          <dd>当机器轰鸣盖过一切细语，河水被染黑、山林被削平——它没有咆哮，没有降下灾祸。它只是退后一步：悄悄收起最古老的物种，让被毒的河改徙他处，让丰产的矿脉突然枯竭。守望者最重的反应，就是撤回保护。</dd>
+          <dt>文明读到了什么</dt>
+          <dd>资源枯竭、环境恶化。</dd>
+          <dt>文明的认知</dt>
+          <dd style="color:var(--glow)">一片可开采的死物——山川是资源，气候是变量，星球没有意识。</dd>
+          <dt>关系</dt>
+          <dd style="color:var(--ember)">无视与索取</dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- Act 4 -->
+    <div class="act reveal" data-act="4">
+      <div class="act-dot"></div>
+      <div class="act-img">
+        <img src="../assets/living-planet-vision/act4-storm-tracks.jpg"
+             alt="第四幕 · 科学-重听：卫星视角下的大陆夜景，青色风暴轨迹绕开琥珀色城市灯点"
+             width="1536" height="1024" loading="lazy">
+      </div>
+      <div class="act-content">
+        <span class="act-label">第四幕</span>
+        <h3>科学 —— 重听</h3>
+        <dl>
+          <dt>星球做了什么</dt>
+          <dd>它继续在做它一直在做的事：把风暴引向无人区，把地震能量释放到深海底，让最猛的极端天气恰好绕开人口稠密的谷地——从不承认，也从不显现。直到有科学家把三百年气候数据摊开：谷地的暴风概率低到不可能是随机。</dd>
+          <dt>文明读到了什么</dt>
+          <dd>它一直在保护我们。</dd>
+          <dt>文明的认知</dt>
+          <dd style="color:var(--glow)">一个活着的、有意图的意识——脚下的星球从未死过。</dd>
+          <dt>关系</dt>
+          <dd style="color:var(--cyan)">假说 → 证实</dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- Act 5 -->
+    <div class="act reveal" data-act="5">
+      <div class="act-dot"></div>
+      <div class="act-img">
+        <img src="../assets/living-planet-vision/act5-city-aurora.jpg"
+             alt="第五幕 · 相认-共生：熄灯城市的屋顶火盆向极光发出呼唤，极光穿过城市峡谷回应"
+             width="1536" height="1024" loading="lazy">
+      </div>
+      <div class="act-content">
+        <span class="act-label">第五幕</span>
+        <h3>相认 —— 共生</h3>
+        <dl>
+          <dt>星球做了什么</dt>
+          <dd>当文明第一次主动招呼——全球熄灭所有电灯，只在城市屋顶点起火盆，向夜空发出蒙昧时代那支简单的哼调。风穿过城市的峡谷，把它完整地哼了回来，和第一幕一模一样。它第一次被叫出名字，也第一次用同样的方式回应。</dd>
+          <dt>文明读到了什么</dt>
+          <dd>对等的他者。</dd>
+          <dt>文明的认知</dt>
+          <dd style="color:var(--glow)">孕育我们的母体，也是与我们对等的另一个"我"。</dd>
+          <dt>关系</dt>
+          <dd style="color:var(--aurora)">共生</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="progression reveal">
+    <div class="progression-label">文明的认知弧光 · 从山中之灵到对等他者</div>
+    <div class="progression-track">
+      <div class="p-node"><span class="p-num">Ⅰ</span><span class="p-word">神秘之灵</span></div>
+      <div class="p-arrow"></div>
+      <div class="p-node"><span class="p-num">Ⅱ</span><span class="p-word">立约之神</span></div>
+      <div class="p-arrow"></div>
+      <div class="p-node"><span class="p-num">Ⅲ</span><span class="p-word">无意识的死物</span></div>
+      <div class="p-arrow"></div>
+      <div class="p-node"><span class="p-num">Ⅳ</span><span class="p-word">活着的意识</span></div>
+      <div class="p-arrow"></div>
+      <div class="p-node highlight"><span class="p-num">Ⅴ</span><span class="p-word">对等的他者</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PART 4: 组合想象 -->
+<section class="section" id="combinations">
+  <div class="section-kicker">04 · 组合想象</div>
+  <h2>每一颗星球都是一个未讲过的故事</h2>
+  <p class="section-intro">三个轴——星球人格、星球类型、文明路线——的自由组合，打开无限想象空间。</p>
+
+  <div class="axes reveal">
+    <div class="axis">
+      <h3>星球人格</h3>
+      <ul>
+        <li><strong>守望者</strong><span class="this">（本篇）</span></li>
+        <li><strong>母亲</strong> —— 有求必应的丰饶</li>
+        <li><strong>免疫者</strong> —— 把文明视作病原</li>
+        <li><strong>隐者</strong> —— 装作死寂</li>
+      </ul>
+    </div>
+    <div class="axis">
+      <h3>星球类型</h3>
+      <ul>
+        <li><strong>森林</strong></li>
+        <li><strong>海洋</strong> —— 洋流与鲸群是它的语言</li>
+        <li><strong>沙漠</strong> —— 风与沙丘书写</li>
+        <li><strong>冻土</strong> —— 极光与冰层低语</li>
+      </ul>
+    </div>
+    <div class="axis">
+      <h3>文明路线</h3>
+      <ul>
+        <li><strong>快工业</strong></li>
+        <li><strong>灵性</strong> —— 从未失聪</li>
+        <li><strong>机械</strong> —— AI 文明</li>
+        <li><strong>游牧</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="combos reveal">
+    <div class="combo">
+      <h3>免疫者 × 快工业</h3>
+      <p>一部科技树被排异反应重塑的文明史——每一次污染都换来一场精准的"过敏"。</p>
+    </div>
+    <div class="combo">
+      <h3>母亲 × 灵性</h3>
+      <p>从未挨饿、也从未分离——一个从未"成为文明"的伊甸。</p>
+    </div>
+    <div class="combo">
+      <h3>隐者 × 科学</h3>
+      <p>三百年的大论战——"这颗星球到底活不活着"，而它一直在装死。</p>
+    </div>
+    <div class="combo">
+      <h3>守望者 × 机械</h3>
+      <p>文明的 AI 与星球的意识隔着数据握手——两种非人智能第一次互道晚安。</p>
+    </div>
+  </div>
+
+  <div class="closing-quote reveal">
+    <blockquote>
+      每一颗星球 × 每一种文明<br>
+      <span class="dim">＝ 一部独一无二的、被"倾听"塑造的历史。</span>
+    </blockquote>
+  </div>
+</section>
+
+</div><!-- .page -->
+
+<footer>灵感源自阿西莫夫《基地》系列盖亚（Gaia）设定 · Project Animus 概念提案</footer>
+
+<script>
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(function(e){ e.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(function(e){ io.observe(e); });
+})();
+</script>
+</body>
+</html>
