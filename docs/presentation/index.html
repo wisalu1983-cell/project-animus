@@ -29,7 +29,7 @@
   h1{font-family:"Fraunces","Noto Serif SC",serif;font-size:clamp(34px,4.6vw,54px);font-weight:600;letter-spacing:-.01em;margin:0 0 14px;line-height:1.15}
   h1 .accent{color:var(--accent)}
   .subtitle{font-size:15px;color:var(--muted);max-width:640px;margin:0}
-  main.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;flex:1;align-content:start}
+  main.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;flex:1;align-content:start}
   @media (max-width:900px){main.cards{grid-template-columns:1fr}}
   .card{position:relative;display:flex;flex-direction:column;padding:30px 26px 28px;background:var(--bg-2);border:1px solid var(--line);border-radius:14px;text-decoration:none;color:inherit;overflow:hidden;transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease}
   .card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--tint,transparent) 0%,transparent 55%);opacity:.14;pointer-events:none}
@@ -44,6 +44,7 @@
   .card.living{--tint:#5ce6a8}
   .card.kh{--tint:#60d6ff}
   .card.grail{--tint:#e8c987}
+  .card.thesis{--tint:#e8a33d}
   footer{margin-top:56px;font-size:12px;color:var(--muted);opacity:.55;text-align:center;letter-spacing:.04em}
 </style>
 </head>
@@ -52,7 +53,7 @@
   <header>
     <div class="eyebrow">Project Animus</div>
     <h1>演示<span class="accent"> · </span>导览</h1>
-    <p class="subtitle">三份独立的演示材料，任意顺序进入。每个页面顶部都有导航条，可随时切换。</p>
+    <p class="subtitle">四份独立的演示材料，任意顺序进入。每个页面顶部都有导航条，可随时切换。</p>
   </header>
   <main class="cards">
     <a class="card living" href="living-planet-vision.html">
@@ -74,6 +75,13 @@
       <h2>Grail War × Agent</h2>
       <div class="cn">召唤一位活着的英灵</div>
       <p class="desc">以 Fate 圣杯战争为壳，把 AI Agent 呈现为一位「活着」的英灵——13 幕分镜讲清 Wow Moment。</p>
+      <span class="cta">进入页面</span>
+    </a>
+    <a class="card thesis" href="dynamic-skeleton-thesis/">
+      <div class="tag">Thesis · 系统论纲</div>
+      <h2>Dynamic Skeleton</h2>
+      <div class="cn">动态骨架 × 具象且个性化的内容</div>
+      <p class="desc">把「活着的动态世界」拆成微观具象、玩家个性化与宏观持续演化，并用可视化方式指出 AI 可以补上的空白格。</p>
       <span class="cta">进入页面</span>
     </a>
   </main>
