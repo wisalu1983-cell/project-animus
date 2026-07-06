@@ -1,7 +1,7 @@
 /* ============================================================
    案例佐证页 — 专属组件
    复用主页面 style.css 的全部设计 token 与基础样式，
-   本文件仅新增：统计带 / 三支柱分布 / 成熟度条 / 案例轴卡片
+   本文件仅新增：统计带 / 三支柱分布 / 案例轴卡片
    ============================================================ */
 
 :root {
@@ -153,45 +153,6 @@
 }
 .dist-note strong { color: var(--text); font-weight: 500; }
 .dist-note em { color: var(--accent); font-style: normal; }
-
-/* ---------- AI 成熟度条 ---------- */
-.maturity-strip {
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--mature);
-  background: var(--surface);
-  padding: 28px 32px;
-}
-.ms-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 18px;
-}
-.ms-head h4 { font-family: var(--serif); font-size: 18px; font-weight: 600; }
-.ms-head p { font-size: 13.5px; color: var(--text-muted); }
-.ms-head em { color: var(--mature); font-style: normal; }
-.ms-bar {
-  display: flex;
-  height: 40px;
-  border-radius: 4px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-}
-.ms-seg {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 13px;
-  font-weight: 500;
-  white-space: nowrap;
-  min-width: 0;
-}
-.ms-mature { background: rgba(111, 191, 139, 0.2); color: var(--mature); }
-.ms-proto  { background: rgba(232, 163, 61, 0.18); color: var(--accent); }
-.ms-seg b { font-family: var(--mono); }
 
 /* ---------- 案例轴卡片 ---------- */
 .case-grid {
@@ -399,5 +360,4 @@
 @media (max-width: 560px) {
   .stat-band { grid-template-columns: 1fr; }
   .dist-seg span { display: none; }
-  .ms-head { flex-direction: column; align-items: flex-start; }
 }
