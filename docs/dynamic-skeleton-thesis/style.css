@@ -235,6 +235,31 @@ body::before {
   margin-bottom: 56px;
 }
 .sec-lede strong, .para strong { color: var(--text); font-weight: 500; }
+
+/* ---------- lede 下方佐证链接 ---------- */
+.lede-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: -32px 0 56px;
+  padding: 13px 22px;
+  border: 1px solid var(--accent-deep);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 13.5px;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  text-decoration: none;
+  border-radius: 999px;
+  transition: background 0.25s, transform 0.25s, border-color 0.25s;
+}
+.lede-link:hover { background: rgba(232, 163, 61, 0.2); transform: translateX(4px); }
+.lede-link svg { width: 17px; height: 17px; flex-shrink: 0; }
+.lede-link .ll-arrow { width: 15px; height: 15px; }
+@media (max-width: 640px) {
+  .lede-link { align-items: flex-start; }
+}
 .sub-head {
   font-family: var(--serif);
   font-weight: 600;

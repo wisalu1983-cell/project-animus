@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案例佐证 · 那些没兑现的承诺 — 动态骨架论纲</title>
+<meta name="description" content="被吹爆但没做到：8 条能力轴、15 款标志性游戏、24 个承诺，逐条归入同一母题——活着的动态世界。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="cases.css">
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="top-nav" id="topNav">
+  <div class="nav-inner">
+    <a href="index.html#top" class="nav-brand">动态骨架<span class="nav-x">×</span>具象内容</a>
+    <div class="nav-links">
+      <a href="#sec-stat">母题统计</a>
+      <a href="#sec-cases">案例清单</a>
+    </div>
+    <a href="index.html" class="nav-back">← 返回论纲</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <canvas id="worldNet" aria-hidden="true"></canvas>
+  <div class="hero-inner">
+    <p class="hero-kicker reveal">论纲 · 案例佐证</p>
+    <h1 class="hero-title reveal">
+      <span class="ht-line">被吹爆的承诺</span>
+      <span class="ht-times">×</span>
+      <span class="ht-line">同一格空白</span>
+    </h1>
+    <p class="hero-sub reveal">从 Project Milo 到 Star Citizen，一款款标志性游戏反复许下同一个愿景，又反复落空。<br>把这些「画饼获得极高期待、却最终无法兑现」的案例摆到一起——它们的共同母题，只有一个。</p>
+    <a href="index.html#sec-motif" class="hero-back reveal">← 返回论纲 · 共同母题一节</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ 1. 母题统计 ============ -->
+<section class="section" id="sec-stat">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="sec-num">01</span>
+      <h2>调研概览：全部落在同一母题之下</h2>
+    </div>
+    <p class="sec-lede reveal">本页取自《被吹爆但没做到》专项调研，收录游戏史上尖叫度极高、却迟迟无法兑现的功能性承诺。逐条核对后——<strong>它们无一例外都指向「活着的动态世界」</strong>。</p>
+
+    <div class="stat-band reveal">
+      <div class="stat-cell">
+        <div class="stat-num">8</div>
+        <div class="stat-label">能力轴</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">15</div>
+        <div class="stat-label">标志性游戏</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">24</div>
+        <div class="stat-label">承诺 case</div>
+      </div>
+      <div class="stat-cell stat-hero">
+        <div class="stat-num">100<small>%</small></div>
+        <div class="stat-label">契合母题</div>
+      </div>
+    </div>
+
+    <!-- 三支柱分布 -->
+    <div class="dist-block reveal">
+      <p class="dist-head">母题三支柱 · 案例主要指向分布</p>
+      <div class="dist-bar" role="img" aria-label="8 条能力轴按母题三支柱分布：具象 1 条、个性化 3 条、持续演化 4 条">
+        <div class="dist-seg seg-1" style="flex-grow:1;"><b>1</b><span>具象</span></div>
+        <div class="dist-seg seg-2" style="flex-grow:3;"><b>3</b><span>个性化</span></div>
+        <div class="dist-seg seg-3" style="flex-grow:4;"><b>4</b><span>持续演化</span></div>
+      </div>
+      <div class="dist-legend">
+        <span class="lg"><span class="lg-dot d1"></span><b>微观体验 · 具象</b>　让世界看起来活、可接触</span>
+        <span class="lg"><span class="lg-dot d2"></span><b>微观体验 · 个性化</b>　世界读懂你、记得你、回应你</span>
+        <span class="lg"><span class="lg-dot d3"></span><b>世界状态 · 持续演化</b>　骨架与内容随行为改变</span>
+      </div>
+      <p class="dist-note">分布并不均匀：绝大多数承诺栽在<em>个性化响应</em>与<em>持续演化</em>这两条轴上——<strong>恰好就是那格空白的两个坐标</strong>；而「具象」本就是传统技术唯一守住的一头，所以很少有人在这里失手。换句话说，<strong>被反复辜负的，从来是同一处。</strong></p>
+
+      <details class="dist-table-wrap reveal">
+        <summary>展开逐轴对位表（图示的数据来源）</summary>
+        <table class="dist-table">
+          <thead>
+            <tr><th>能力轴</th><th>主要指向</th><th>代表游戏</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>活的、可信的 NPC</strong></td><td>具象</td><td>Project Milo · Oblivion · Hello Neighbor 2</td></tr>
+            <tr><td><strong>动态生成的剧情与任务</strong></td><td>持续演化</td><td>Starfield · Watch Dogs: Legion · Anthem</td></tr>
+            <tr><td><strong>活着的世界</strong></td><td>持续演化</td><td>Cyberpunk 2077 · Star Citizen · Oblivion</td></tr>
+            <tr><td><strong>世界记得你</strong></td><td>个性化</td><td>Cyberpunk Lifepaths · Mass Effect 3 · Skyrim</td></tr>
+            <tr><td><strong>自然语言对话</strong></td><td>个性化</td><td>Project Milo · BioShock Infinite · Starfield</td></tr>
+            <tr><td><strong>AI 导演 / 个性化调度</strong></td><td>个性化</td><td>S.T.A.L.K.E.R. · Watch Dogs: Legion · Fable</td></tr>
+            <tr><td><strong>真正无限且有深度的程序化内容</strong></td><td>持续演化</td><td>No Man's Sky · Starfield · Spore</td></tr>
+            <tr><td><strong>涌现式社会 / 派系战争</strong></td><td>持续演化</td><td>Fable · Spore · Star Citizen</td></tr>
+          </tbody>
+        </table>
+      </details>
+    </div>
+
+    <!-- AI 成熟度 -->
+    <div class="maturity-strip reveal">
+      <div class="ms-head">
+        <h4>为什么现在重提？——24 个承诺，24 个都有可信技术路径</h4>
+        <p>按 2025/2026 AI 能力栈评估 · <em>0 个落在远期科学断点</em></p>
+      </div>
+      <div class="ms-bar" role="img" aria-label="24 个承诺的 AI 解锁成熟度：17 个已可演示，7 个前沿但有路径，0 个远期断点">
+        <div class="ms-seg ms-mature" style="flex-grow:17;"><b>17</b> 已可演示</div>
+        <div class="ms-seg ms-proto" style="flex-grow:7;"><b>7</b> 前沿但有路径</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. 案例清单 ============ -->
+<section class="section section-alt" id="sec-cases">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="sec-num">02</span>
+      <h2>逐轴清单：画的什么饼，缺的又是什么</h2>
+    </div>
+    <p class="sec-lede reveal">每条能力轴取一个最具代表性的案例，只留结论——当年画的饼，以及至今仍缺的那一口。右上角标注该轴主要落在母题的哪根支柱上。</p>
+
+    <div class="case-grid">
+
+      <article class="case-axis ax-1 reveal">
+        <div class="ca-top">
+          <span class="ca-num">01</span>
+          <h3 class="ca-name">活的、可信的 NPC</h3>
+          <span class="ca-pillar pl-1">具象</span>
+        </div>
+        <div class="ca-verdict">
+          <div class="cv-line"><span class="cv-tag tag-promise">画饼</span><span class="cv-promise">NPC 真的「活着」——有自主目标、能自行决策、对你有反应。</span></div>
+          <div class="cv-line"><span class="cv-tag tag-broken">未兑现</span><span class="cv-broken">Radiant AI 被砍成预设日程与换皮台词，自主连锁行为与非脚本反应始终缺席。</span></div>
+        </div>
+        <div class="ca-case">
+          <span class="ca-case-label">典型案例</span>
+          <span class="ca-case-game">The Elder Scrolls IV: Oblivion · Radiant AI <em>2006</em></span>
+        </div>
+      </article>
+
+      <article class="case-axis ax-3 reveal" data-delay="1">
+        <div class="ca-top">
+          <span class="ca-num">02</span>
+          <h3 class="ca-name">动态生成的剧情与任务</h3>
+          <span class="ca-pillar pl-3">持续演化</span>
+        </div>
+        <div class="ca-verdict">
+          <div class="cv-line"><span class="cv-tag tag-promise">画饼</span><span class="cv-promise">1000 颗行星，每颗都有招牌的浮现式探索叙事。</span></div>
+          <div class="cv-line"><span class="cv-tag tag-broken">未兑现</span><span class="cv-broken">落地为反复出现的模板 POI 与复制粘贴任务，同一情境永远走出同一条线。</span></div>
+        </div>
+        <div class="ca-case">
+          <span class="ca-case-label">典型案例</span>
+          <span class="ca-case-game">Starfield <em>2023</em></span>
+        </div>
+      </article>
+
+      <article class="case-axis ax-3 reveal">
+        <div class="ca-top">
+          <span class="ca-num">03</span>
+          <h3 class="ca-name">活着的世界</h3>
+          <span class="ca-pillar pl-3">持续演化</span>
+        </div>
+        <div class="ca-verdict">
+          <div class="cv-line"><span class="cv-tag tag-promise">画饼</span><span class="cv-promise">一座按 AI 与自动化原理运转的活体大都市，NPC 各有日程与人生。</span></div>
+          <div class="cv-line"><span class="cv-tag tag-broken">未兑现</span><span class="cv-broken">玩家一离场世界即冻结，居民生活无法被长期改变，2.x 也只补了反应性。</span></div>
+        </div>
+        <div class="ca-case">
+          <span class="ca-case-label">典型案例</span>
+          <span class="ca-case-game">Cyberpunk 2077 <em>2020</em></span>
+        </div>
+      </article>
+
+      <article class="case-axis ax-2 reveal" data-delay="1">
+        <div class="ca-top">
+          <span class="ca-num">04</span>
+          <h3 class="ca-name">世界记得你</h3>
+          <span class="ca-pillar pl-2">个性化</span>
+        </div>
+        <div class="ca-verdict">
+          <div class="cv-line"><span class="cv-tag tag-promise">画饼</span><span class="cv-promise">三部曲的累计选择汇成「银河的最终状态」，而非 A/B/C 结局。</span></div>
+          <div class="cv-line"><span class="cv-tag tag-broken">未兑现</span><span class="cv-broken">三色结局仅换滤镜、复用同一段过场，世界并不真的记得你的选择。</span></div>
+        </div>
+        <div class="ca-case">
+          <span class="ca-case-label">典型案例</span>
+          <span class="ca-case-game">Mass Effect 3 <em>2012</em></span>
+        </div>
+      </article>
+
+      <article class="case-axis ax-2 reveal">
+        <div class="ca-top">
+          <span class="ca-num">05</span>
+          <h3 class="ca-name">自然语言对话</h3>
+          <span class="ca-pillar pl-2">个性化</span>
+        </div>
+        <div class="ca-verdict">
+          <div class="cv-line"><span class="cv-tag tag-promise">画饼</span><span class="cv-promise">Kinect 配一个 AI 男孩，能自由对话、看懂你、跨会话把你记一辈子。</span></div>
+          <div class="cv-line"><span class="cv-tag tag-broken">未兑现</span><span class="cv-broken">当年靠预设问题「作弊」蒙混，真正能聊、能记住你的伙伴 NPC 从未面世。</span></div>
+        </div>
+        <div class="ca-case">
+          <span class="ca-case-label">典型案例</span>
+          <span class="ca-case-game">Project Milo <em>2009</em></span>
+        </div>
+      </article>
+
+      <article class="case-axis ax-2 reveal" data-delay="1">
+        <div class="ca-top">
+          <span class="ca-num">06</span>
+          <h3 class="ca-name">AI 导演 / 个性化调度</h3>
+          <span class="ca-pillar pl-2">个性化</span>
+        </div>
+        <div class="ca-verdict">
+          <div class="cv-line"><span class="cv-tag tag-promise">画饼</span><span class="cv-promise">上千 NPC 在世界里自主生活，你不在场时也各自推进任务。</span></div>
+          <div class="cv-line"><span class="cv-tag tag-broken">未兑现</span><span class="cv-broken">全区持续模拟与长期个体记忆始终没达当年标准，世界更像被脚本触发。</span></div>
+        </div>
+        <div class="ca-case">
+          <span class="ca-case-label">典型案例</span>
+          <span class="ca-case-game">S.T.A.L.K.E.R. · A-Life <em>2007</em></span>
+        </div>
+      </article>
+
+      <article class="case-axis ax-3 reveal">
+        <div class="ca-top">
+          <span class="ca-num">07</span>
+          <h3 class="ca-name">真正无限且有深度的程序化内容</h3>
+          <span class="ca-pillar pl-3">持续演化</span>
+        </div>
+        <div class="ca-verdict">
+          <div class="cv-line"><span class="cv-tag tag-promise">画饼</span><span class="cv-promise">一万八千京颗行星，各有独立生态与浮现行为（鲨鱼跃出水面咬飞鸟）。</span></div>
+          <div class="cv-line"><span class="cv-tag tag-broken">未兑现</span><span class="cv-broken">数量堆到极致却千篇一律，真实食物链与「有意义的差异」始终没长出来。</span></div>
+        </div>
+        <div class="ca-case">
+          <span class="ca-case-label">典型案例</span>
+          <span class="ca-case-game">No Man's Sky <em>2016</em></span>
+        </div>
+      </article>
+
+      <article class="case-axis ax-3 reveal" data-delay="1">
+        <div class="ca-top">
+          <span class="ca-num">08</span>
+          <h3 class="ca-name">涌现式社会 / 派系战争</h3>
+          <span class="ca-pillar pl-3">持续演化</span>
+        </div>
+        <div class="ca-verdict">
+          <div class="cv-line"><span class="cv-tag tag-promise">画饼</span><span class="cv-promise">宇宙九成人口是 AI Quanta，自主挖矿、安保、当海盗，驱动一套活的经济。</span></div>
+          <div class="cv-line"><span class="cv-tag tag-broken">未兑现</span><span class="cv-broken">数十万级自主经济与全局反馈循环被无限期推迟，始终没在游戏里跑起来。</span></div>
+        </div>
+        <div class="ca-case">
+          <span class="ca-case-label">典型案例</span>
+          <span class="ca-case-game">Star Citizen <em>2014–</em></span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 回链 ============ -->
+<section class="section section-end">
+  <div class="container">
+    <p class="end-text reveal">同一张饼，被不同工作室、以不同措辞，画了二十年。<br>它们缺的从来不是诚意或预算，而是<strong>同时做到动态骨架、具象表达与个性化内容</strong>的那一格能力。</p>
+    <div class="back-strip reveal">
+      <a href="index.html#sec-motif" class="back-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+        回到论纲 · 看这格空白如何被逐项填上
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <p>案例佐证 · 数据源自《被吹爆但没做到》专项调研 · 动态骨架论纲</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
